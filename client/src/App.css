@@ -1,38 +1,28 @@
-.App {
-  text-align: center;
+.card {
+  margin: 10px;
+}
+.table {
+  margin: 10px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.formAddStudent {
+  border: 2px solid rgb(106, 106, 223);
+  height: 370px;
+  width: 350px;
+  margin: 50px auto;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.formRow {
+  margin: 10px;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+label {
+  display: block;
 }
-
-.App-link {
-  color: #61dafb;
+.inputAddStudent {
+  width: 300px;
+  margin-left: 5px;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.buttonAddStudent {
+  width: 300px;
+  margin-left: 20px;
+  margin-top: 10px;
 }
