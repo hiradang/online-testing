@@ -1,12 +1,12 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import {BrowserRouter as Router, Link, Route, Switch} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 function Home() {
     
     return (
-    <div className="App">
+    <div>
       <div className="card">
         <div className="card-header">
           Danh sách các lớp môn học
