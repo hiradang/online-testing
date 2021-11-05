@@ -22,10 +22,10 @@ function AddStudent() {
                         <label>Lớp khóa học:</label>
                         <Field id = "" name="faculty" className = "inputAddStudent" ></Field>
                     </div>
-                    <div className = "formRow">
+                    {/* <div className = "formRow">
                         <label>Ngày sinh sinh viên:</label>
                         <Field id = "" name="birthday" type = "date" className = "inputAddStudent"></Field>
-                    </div>
+                    </div> */}
                     <button type="submit" className="btn btn-primary buttonAddStudent">Thêm sinh viên</button>
                 </Form>
             </Formik>

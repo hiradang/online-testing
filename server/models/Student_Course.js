@@ -17,5 +17,11 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
         }
     });
+    Student_Course.associate = (models) => {
+        Student_Course.belongsTo(models.Courses, {
+          onDelete: "cascade",
+          foreignKey: "course_id"
+        });
+      };
     return Student_Course;
 };

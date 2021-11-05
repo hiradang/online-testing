@@ -1,14 +1,17 @@
 import React from 'react'
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useHistory } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import {BrowserRouter as Router, Link, Route, Switch} from "react-router-dom";
 
-function Student() {
+function Students() {
     const [listStudent, setListStudent] = useState([]);
+    let history = useHistory();
     useEffect(()=> {
         axios.get("http://localhost:3001/admin/manage/students").then((response) =>{
+            
             setListStudent(response.data)
         });
     }, [])
@@ -25,7 +28,9 @@ function Student() {
                 
                 {listStudent.map((value, key) => {
                     return (
-                        <tbody>
+                        <tbody className = "row_table" onClick={()=> {
+                            history.push(`/admin/manage/students/${value.student_id}`)
+                        }} >
                         <td>{key+1}</td>
                         <td>{value.student_id}</td>
                         <td>{value.name}</td>
@@ -43,4 +48,4 @@ function Student() {
     )
 }
 
-export default Student
+export default Students

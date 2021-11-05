@@ -3,6 +3,7 @@ module.exports = (sequelize, DataTypes) => {
         course_id: {
             type: DataTypes.STRING,
             allowNull: false,
+            primaryKey: true
         },
         course_name: {
             type: DataTypes.STRING,
@@ -17,5 +18,17 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
         },
     });
+    Courses.associate = (models) => {
+        Courses.hasMany(models.Student_Course, {
+          onDelete: "cascade",
+          foreignKey: "course_id"
+        });
+    };
+    Courses.associate = (models) => {
+        Courses.belongsTo(models.Teachers, {
+            onDelete: "cascade",
+            foreignKey: "teacher_id"
+            });
+    };
     return Courses;
 };

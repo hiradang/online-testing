@@ -2,6 +2,7 @@ module.exports = (sequelize, DataTypes) => {
     const Teachers = sequelize.define("Teachers", {
         teacher_id: {
             type: DataTypes.STRING,
+            primaryKey: true,
             allowNull: false,
         },
         teacher_name: {
@@ -13,5 +14,11 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
         }
     });
+    Teachers.associate = (models) => {
+        Teachers.hasMany(models.Courses, {
+          onDelete: "cascade",
+          foreignKey: "teacher_id"
+        });
+      };
     return Teachers;
 };
