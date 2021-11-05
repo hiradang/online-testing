@@ -1,18 +1,19 @@
 const express = require('express');
 const router = express.Router();
 const {Courses} = require('../models')
-const {Student_Course} = require('../models')
+const {Teachers} = require('../models')
 
-router.get("/:id", async (req, res) => {
-  let id = req.params.id;
-  const courseInfo = await Student_Course.findAll({
-    where: {course_id : id},
+router.get("/:teacherId", async (req, res) => {
+  let teacherId = req.params.teacherId;
+  const teacherInfo = await Courses.findAll({
+    where: {teacher_id : teacherId},
     include: [
-      Courses  
+      Teachers  
     ]
   });
-  res.json(courseInfo)
+  res.json(teacherInfo)
 })
+
 
 router.get("/", async (req, res) => {
     const listCourses = await Courses.findAll();

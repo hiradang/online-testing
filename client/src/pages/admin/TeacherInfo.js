@@ -9,7 +9,7 @@ function TeacherInfo() {
     let {id} = useParams();
     const [teacherInfo, setTeacherInfo] = useState([]);
     useEffect(()=> {
-        axios.get(`http://localhost:3001/admin/manage/teachers/${id}`).then((response) =>{
+        axios.get(`http://localhost:3001/admin/manage/courses/${id}`).then((response) =>{
             console.log(response.data)
             setTeacherInfo(response.data)
         });

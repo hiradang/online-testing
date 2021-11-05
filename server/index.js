@@ -1,5 +1,4 @@
 const express = require('express');
-const { sequelize } = require('./models');
 const app = express();
 const db = require("./models");
 const cors = require('cors')
@@ -17,6 +16,8 @@ app.use("/admin/manage/teachers", teacherRouter);
 const courseRouter = require("./routes/Courses")
 app.use("/admin/manage/courses", courseRouter);
 
+const studentCourseRouter = require("./routes/Student_Course")
+app.use("/admin/manage/student-course", studentCourseRouter);
 
 db.sequelize.sync().then(() => {
 app.listen(3001, () => {

@@ -9,7 +9,7 @@ function CourseInfo() {
     let {id} = useParams();
     const [courseInfo, setCourseInfo] = useState([]);
     useEffect(()=> {
-        axios.get(`http://localhost:3001/admin/manage/courses/${id}`).then((response) =>{
+        axios.get(`http://localhost:3001/admin/manage/student-course/details/${id}`).then((response) =>{
             console.log(response.data)
             setCourseInfo(response.data)
         });

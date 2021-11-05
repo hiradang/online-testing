@@ -3,6 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from 'react-router';
 import '../../css/teacher.css';
+import {Link} from 'react-router-dom';
 
 function ListStudent() {
     let {courseId} = useParams();
@@ -16,8 +17,7 @@ function ListStudent() {
 
     return (
         <div>
-            <div className="">
-
+            <div className="container">
             </div>
         </div>
     )

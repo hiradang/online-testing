@@ -9,7 +9,7 @@ function StudentInfo() {
     let {id} = useParams();
     const [studentInfo, setStudentInfo] = useState([]);
     useEffect(()=> {
-        axios.get(`http://localhost:3001/admin/manage/students/${id}`).then((response) =>{
+        axios.get(`http://localhost:3001/admin/manage/student-course/${id}`).then((response) =>{
             console.log(response.data)
             setStudentInfo(response.data)
         });
