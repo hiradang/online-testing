@@ -8,6 +8,11 @@ import StudentInfo from '../pages/admin/StudentInfo';
 import TeacherInfo from '../pages/admin/TeacherInfo';
 import CourseInfo from '../pages/admin/CourseInfo';
 
+// Student
+import ListStudent from '../pages/teacher/ListStudent'
+import CourseDetail from '../pages/teacher/CourseDetail'
+import AddExam from '../pages/teacher/AddExam'
+
 // eslint-disable-next-line import/no-anonymous-default-export
 export default [ 
     {
@@ -37,5 +42,19 @@ export default [
     {
         path: "/admin/manage/courses/:id",
         component: CourseInfo
-    }
+    },
+
+    // teacher
+    {
+        path: "/teacher/:teacherId/:courseId/view-student",
+        component: ListStudent
+    },
+    {
+        path: "/teacher/:teacherId/:courseId",
+        component: CourseDetail
+    },
+    {
+        path: "/teacher/:teacherId/:courseId/new-exam",
+        component: AddExam
+    },
 ];

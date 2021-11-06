@@ -14,7 +14,6 @@ router.get("/:teacherId", async (req, res) => {
   res.json(teacherInfo)
 })
 
-
 router.get("/", async (req, res) => {
     const listCourses = await Courses.findAll();
     res.json(listCourses)

@@ -1,10 +1,10 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
 const db = require("./models");
-const cors = require('cors')
 
-app.use(express.json());
-app.use(cors());
+app.use(cors()); 
+app.use(express.json({strict: false}));
 
 //Router
 const studentRouter = require("./routes/Students")
@@ -19,8 +19,14 @@ app.use("/admin/manage/courses", courseRouter);
 const studentCourseRouter = require("./routes/Student_Course")
 app.use("/admin/manage/student-course", studentCourseRouter);
 
+const examRouter = require("./routes/Exams")
+app.use("/admin/manage/exams", examRouter);
+
+const questionRouter = require("./routes/Questions")
+app.use("/admin/manage/questions", questionRouter);
+
 db.sequelize.sync().then(() => {
-app.listen(3001, () => {
-    console.log("Server running on port 3001");
-});
+    app.listen(3001, () => {
+        console.log("Server running on port 3001");
+    });
 });

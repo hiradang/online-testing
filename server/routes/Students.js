@@ -1,17 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const {Student} = require('../models')
-const {Student_Course} = require('../models')
-const {Courses} = require('../models')
+const {Students} = require('../models')
 
 router.get("/", async (req, res) => {
-    const listStudent = await Student.findAll();
+    const listStudent = await Students.findAll();
     res.json(listStudent)
 })
 
 router.post("/", async (req, res) => {
     const student = req.body;
-    await Student.create(student);
+    await Students.create(student);
     res.json(student);
   });
 
