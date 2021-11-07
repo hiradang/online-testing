@@ -11,7 +11,6 @@ function TeacherHome() {
     useEffect(()=> {
         axios.get(`http://localhost:3001/admin/manage/courses/${teacherId}`).then((response) =>{
             setListCourses(response.data)
-            console.log(response.data);
         });
     }, [])
 

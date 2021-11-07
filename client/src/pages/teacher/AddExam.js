@@ -1,26 +1,37 @@
 import React, {useState} from 'react'
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field, ErrorMessage} from "formik";
 import { useParams } from 'react-router';
 import axios from 'axios';
 import * as Yup from 'yup';
-import {useHistory} from 'react-router-dom';
+import {useHistory, Link} from 'react-router-dom';
 
 function AddExam() {
     const {courseId} = useParams();
     const {teacherId} = useParams();
+    const {numberExam} = useParams();
+    const examId = courseId + "--"+ numberExam;
     const history = useHistory();
     const initialValues = {
         examName: "",
         timeStart: "",
         duration: "",
-        numberQuestion: ""
+        numberQuestion: "",
+        questionContent: [],
+        choice1: [],
+        choice2: [],
+        choice3: [],
     };
     
     const validationSchema = Yup.object().shape({
+        examName: Yup.string().required("Bạn phải nhập tên bài thi!"),
+        timeStart: Yup.string().required("Bạn phải chọn thời gian bắt đầu!"),
+        duration: Yup.string().required("Bạn phải nhập thời gian làm bài!"),
+        numberQuestion: Yup.string().required("Bạn phải nhập số lượng câu hỏi!"),
     });
     
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
         let newExam =  {
+            examId: examId,
             examName: data.examName,
             course_id: courseId,
             timeStart: data.timeStart,
@@ -29,7 +40,21 @@ function AddExam() {
             private: false
         }
 
-        axios.post("http://localhost:3001/admin/manage/exams", newExam).then((response) => {
+        // Add questions
+        for (let i = 0; i < numberQuestion; i++) {
+            let newQuestion = {
+                examId: examId,
+                questionContent: data.questionContent[i],
+                result: data.result[i],
+                choice1: data.choice1[i],
+                choice2: data.choice2[i],
+                choice3: data.choice3[i],
+            }
+            await axios.post("http://localhost:3001/admin/manage/questions", newQuestion).then((response) => {
+            });
+        }
+
+        await axios.post("http://localhost:3001/admin/manage/exams", newExam).then((response) => {
             history.goBack(`teacher/${teacherId}/:${courseId}`);
         });
     };
@@ -47,34 +72,39 @@ function AddExam() {
             let newQuestion = (
                 <div className="questionContainer">
                     <label>Câu hỏi số: {i + 1}</label>
-                    <ErrorMessage name="questionContent" component="div" />
+                    <ErrorMessage className="errorMessage" name={`questionContent[${i}]`} component="div" />
                     <Field
                         class="inputCreateExam questionContent"
-                        name={`questionContent${i + 1}`}
+                        name={`questionContent[${i}]`}
+                        required
                     />
 
                     <label>Đáp án</label>
                     <Field
                         class="result"
-                        name={`result${i + 1}`}
+                        name={`result[${i}]`}
+                        required
                     />
 
                     <label>Lựa chọn 1</label>
                     <Field
                         class="choice1"
-                        name={`choice1${i + 1}`}
+                        name={`choice1[${i}]`}
+                        required
                     />
 
                     <label>Lựa chọn 2</label>
                     <Field
                         class="choice2"
-                        name={`choice2${i + 1}`}
+                        name={`choice2[${i}]`}
+                        required
                     />
 
                     <label>Lựa chọn 3</label>
                     <Field
                         class="choice3"
-                        name={`choice3${i + 1}`}
+                        name={`choice3[${i}]`}
+                        required
                     />
                 </div>
             )
@@ -84,6 +114,10 @@ function AddExam() {
 
     return (
         <div className="page-container"> 
+            <Link to={`/teacher/${teacherId}/${courseId}`}
+            className="link">
+            Quay lại
+            </Link>  
             <h2 className="list-title">Tạo một ca thi mới</h2>
             <Formik
                 initialValues={initialValues}
@@ -92,7 +126,7 @@ function AddExam() {
             >
                 <Form className="formContainer">
                     <label>Tên kỳ thi: </label>
-                    <ErrorMessage name="examName" component="div" />
+                    <ErrorMessage className="errorMessage" name="examName" component="div" />
                     <Field
                         autocomplete="off"
                         class="inputCreateExam"
@@ -101,7 +135,7 @@ function AddExam() {
                     />
                     
                     <label>Thời gian làm bài: (phút) </label>
-                    <ErrorMessage name="duration" component="div" />
+                    <ErrorMessage className="errorMessage" name="duration" component="div" />
                     <Field
                         type="number"
                         autocomplete="off"
@@ -111,16 +145,16 @@ function AddExam() {
                     />
 
                     <label>Thời gian tổ chức thi: </label>
-                    <ErrorMessage name="timeStart" component="div" />
+                    <ErrorMessage className="errorMessage" name="timeStart" component="div" />
                     <Field
-                        type="date"
+                        type="datetime-local"
                         autocomplete="off"
                         class="inputCreateExam"
                         name="timeStart"
                     />
 
                     <label>Số lượng câu hỏi: </label>
-                    <ErrorMessage name="numberQuestion" component="div" />
+                    <ErrorMessage className="errorMessage" name="numberQuestion" component="div" />
                     <Field
                         onBlur={(e) => {
                             handleOnBlur(e);

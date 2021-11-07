@@ -12,13 +12,39 @@
     font-size: 2.5rem;
 }
 
-.courses-item {
+.courses-item  {
     font-size: 2rem;
     list-style-type: none;
     border: 2px solid blue;
     padding: 15px;
     margin-bottom: 40px;
     cursor: pointer;
+}
+
+/* Course details */
+
+.exam-info {
+    font-size: 24px;
+    list-style-type: none;
+    border: 2px solid rgb(113, 113, 129);
+    padding: 15px;
+    margin: 20px 0;
+    cursor: pointer;
+}
+
+.exam-info li {
+    font-size: 16px;
+}
+
+.link {
+    color: rgb(59, 105, 175);
+    /* text-decoration: none; */
+}
+
+.toCreateNewExamBtn {
+    padding: 15px;
+    font-size: 24px;
+    text-decoration: none;
 }
 
 /* List students */
@@ -64,4 +90,21 @@
     flex-direction: column;
     border: 1px solid black;
     margin-bottom: 30px;
+}
+
+.errorMessage {
+    color: red;
+}
+
+/* View exam */
+
+fieldset.showQuestion {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+fieldset.showQuestion input {
+    padding: 10px;
+    margin-bottom: 20px;
 }

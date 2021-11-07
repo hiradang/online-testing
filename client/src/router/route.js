@@ -12,6 +12,8 @@ import CourseInfo from '../pages/admin/CourseInfo';
 import ListStudent from '../pages/teacher/ListStudent'
 import CourseDetail from '../pages/teacher/CourseDetail'
 import AddExam from '../pages/teacher/AddExam'
+import ViewExam from '../pages/teacher/ViewExam'
+import EditExam from '../pages/teacher/EditExam'
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default [ 
@@ -54,7 +56,15 @@ export default [
         component: CourseDetail
     },
     {
-        path: "/teacher/:teacherId/:courseId/new-exam",
+        path: "/teacher/:teacherId/:courseId/new-exam:numberExam",
         component: AddExam
+    },    
+    {
+        path: "/teacher/:teacherId/:courseId/view-exam/:examId",
+        component: ViewExam
+    },
+    {
+        path: "/teacher/:teacherId/:courseId/edit-exam/:examId",
+        component: EditExam
     },
 ];

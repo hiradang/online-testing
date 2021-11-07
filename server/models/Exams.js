@@ -1,5 +1,10 @@
 module.exports = (sequelize, DataTypes) => {
     const Exams = sequelize.define("Exams", {
+        examId: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            primaryKey: true
+        },
         examName: {
             type: DataTypes.STRING,
             allowNull: false
@@ -29,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
     Exams.associate = (models) => {
         Exams.hasMany(models.Questions, {
             onDelete: "cascade",
-            foreignKey: "id"
+            foreignKey: "examId"
         });
     };
 
