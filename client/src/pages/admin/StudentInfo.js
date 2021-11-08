@@ -10,10 +10,10 @@ function StudentInfo() {
     const [studentInfo, setStudentInfo] = useState([]);
     useEffect(()=> {
         axios.get(`http://localhost:3001/admin/manage/student-course/${id}`).then((response) =>{
-            console.log(response.data)
             setStudentInfo(response.data)
         });
     }, [])
+    console.log(studentInfo)
     return (
         <div>      
             <table className="table table-striped">

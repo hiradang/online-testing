@@ -1,32 +1,62 @@
 .card {
     margin: 10px;
-  }
-  .table {
-    margin: 15px;
-  }
-  
-  .formAddStudent {
-    border: 2px solid rgb(106, 106, 223);
-    /* height: 370px; */
-    width: 350px;
-    margin: 50px auto;
-  }
-  .formRow {
-    margin: 10px;
-  }
-  label {
-    display: block;
-  }
-  .inputAddStudent {
-    width: 300px;
-    margin-left: 5px;
-  }
-  .buttonAddStudent {
-    width: 300px;
-    margin-left: 20px;
-    margin-top: 10px;
-    margin-bottom: 20px;
-  }
-  .row_table {
-    cursor: pointer;
-  }
+}
+.table {
+  margin: 15px;
+}
+
+.formAddStudent {
+  border: 2px solid rgb(106, 106, 223);
+  /* height: 370px; */
+  width: 350px;
+  margin: 50px auto;
+}
+.formRow {
+  margin: 10px;
+}
+label {
+  display: block;
+}
+.inputAddStudent {
+  width: 300px;
+  margin-left: 5px;
+  margin-bottom: 5px;
+}
+.inputAddStudentCourse {
+  width: 270px;
+  margin-left: 5px;
+  margin-bottom: 5px;
+}
+.buttonAddStudent {
+  width: 300px;
+  margin-left: 20px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+.row_table {
+  cursor: pointer;
+}
+.addStudentCourse {
+  color: rgb(218, 174, 109);
+  float: right;
+  margin-right: 20px;
+  margin-top: 5px;
+  cursor: pointer;
+}
+.delAddStudentCourse {
+  color: rgb(238, 88, 88);
+  margin-left: 16px;
+  cursor: pointer;
+}
+
+/* students */
+.btnStudent {
+  margin: 10px;
+}
+.searchStudent {
+  height: 25px;
+  margin-bottom: 5px;
+}
+.infoStudent {
+  cursor: pointer;
+}

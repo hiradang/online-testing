@@ -14,9 +14,18 @@ router.get("/details/:courseId", async (req, res) => {
   });
   res.json(courseInfo)
 })
+router.get("/update/:id", async (req, res) => {
+  let studentId = req.params.id;
+  console.log(studentId)
+  const studentInfo = await Student_Course.findAll({
+    where: {student_id : studentId},
+  });
+  res.json(studentInfo);
+})
 
 router.get("/:studentId", async (req, res) => {
   let studentId = req.params.studentId;
+  console.log(studentId)
   const studentInfo = await Student_Course.findAll({
     where: {student_id : studentId},
     include: [

@@ -7,9 +7,14 @@ import Courses from '../pages/admin/Courses';
 import StudentInfo from '../pages/admin/StudentInfo';
 import TeacherInfo from '../pages/admin/TeacherInfo';
 import CourseInfo from '../pages/admin/CourseInfo';
+import UpdateStudent from '../pages/admin/UpdateStudent';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default [ 
+    {
+        path: "/admin/manage/students/update/:id",
+        component: UpdateStudent
+    },
     {
         path: "/admin/manage/students",
         component: Students
@@ -37,5 +42,5 @@ export default [
     {
         path: "/admin/manage/courses/:id",
         component: CourseInfo
-    }
+    },
 ];
