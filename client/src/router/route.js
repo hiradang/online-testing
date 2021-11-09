@@ -10,7 +10,9 @@ import CourseInfo from '../pages/admin/courses/CourseInfo';
 import UpdateStudent from '../pages/admin/students/UpdateStudent';
 import AddTeacher from '../pages/admin/teachers/AddTeacher';
 import UpdateTeacher from '../pages/admin/teachers/UpdateTeacher';
-
+import AddCourse from '../pages/admin/courses/AddCourse';
+import UpdateCourse from '../pages/admin/courses/UpdateCourse';
+import CourseAddStudent from '../pages/admin/courses/CourseAddStudent';
 // eslint-disable-next-line import/no-anonymous-default-export
 export default [ 
     {
@@ -36,6 +38,18 @@ export default [
     {
         path: "/admin/manage/teachers",
         component: Teacher
+    },
+    {
+        path: "/admin/manage/courses/add",
+        component: AddCourse
+    },
+    {
+        path: "/admin/manage/courses/update/:id/addStudent",
+        component: CourseAddStudent
+    },
+    {
+        path: "/admin/manage/courses/update/:id",
+        component: UpdateCourse
     },
     {
         path: "/admin/manage/courses",

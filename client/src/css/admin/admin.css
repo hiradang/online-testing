@@ -62,3 +62,16 @@ label {
 a {
   text-decoration: none;
 }
+
+.delAddStudentCourse {
+  color: red;
+ 
+  cursor: pointer;
+  margin-left: 20px;
+  margin-top: 5px;
+}
+/* Course */
+#couresAddStudent {
+  margin: 10px auto;
+  width: 350px;
+}

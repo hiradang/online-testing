@@ -26,7 +26,6 @@ function TeacherInfo() {
             cancelButtonColor: '#d33'
         }).then((result) => {
             if (result.isConfirmed) {
-                var teacher = e.target.parentNode.parentNode;
                 axios.get(`http://localhost:3001/admin/manage/teachers/delete/${id}`).then((response) => {
                     history.push("/admin/manage/teachers");
                 });

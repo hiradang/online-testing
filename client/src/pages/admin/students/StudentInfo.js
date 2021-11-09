@@ -26,14 +26,13 @@ function StudentInfo() {
             cancelButtonColor: '#d33'
         }).then((result) => {
             if (result.isConfirmed) {
-                var student = e.target.parentNode.parentNode;
+            
                 axios.get(`http://localhost:3001/admin/manage/students/delete/${id}`).then((response) => {
                     history.push("/admin/manage/students");
                 });
             }
         })  
     }
-    console.log(studentInfo)
     return (
         <div>      
             <a href = {`/admin/manage/students/update/${id}`} className="btnStudent btn btn-primary">Sửa thông tin sinh viên</a>

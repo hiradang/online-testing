@@ -39,7 +39,7 @@ function Teacher() {
         }
         setTempListTeachers(tempListTeachers.sort((teacherOne, teacherTwo) => {
             if (newSort.by === 'idSort') {
-                if (teacherOne.teacher_id.toString() > teacherTwo.teacher_id.toString()) return +newSort.value
+                if (teacherOne.teacher_id.toLowerCase() > teacherTwo.teacher_id.toLowerCase()) return +newSort.value
                 else return -newSort.value;
             } else if (newSort.by === 'nameSort') {
                 if (teacherOne.teacher_name.toLowerCase() > teacherTwo.teacher_name.toLowerCase()) return +newSort.value
@@ -92,7 +92,7 @@ function Teacher() {
             <table className="table table-striped">
                 <thead>
                     <th>#</th>
-                    <th><label className = "infoTeacher" id = "idSort" onClick = {(e)=> onSort(e)}>Mã số giáo viên</label>
+                    <th><label className = "infoTeacher" id = "idSort" onClick = {(e)=> onSort(e)}>Mã số giảng viên</label>
                         <br/>
                         <input className="searchTeacher" name = "teacher_id" onChange = {(e)=> handle(e)} 
                             onKeyDown = {(e) => search(e)}>
