@@ -8,6 +8,7 @@ import '@fortawesome/fontawesome-free/css/all.css'
 
 
 function UpdateStudent() {
+    
     let history = useHistory();
     let {id} = useParams();
     const [studentInfo, setStudentInfo] = useState([]);
@@ -22,7 +23,6 @@ function UpdateStudent() {
     useEffect(()=> {      
        axios.get(`http://localhost:3001/admin/manage/student-course/update/${id}`).then((response) =>{
             setStudentInfo(response.data);
-            console.log("get data")
             data.name = response.data[0].name
             data.student_id = response.data[0].student_id;
             data.faculty = response.data[0].faculty;
@@ -48,7 +48,6 @@ function UpdateStudent() {
             history.push("/admin/manage/students");
         });
       };
-      console.log(studentInfo)
     var count = studentInfo.length;
     function handle(e) {
         const newData = {...data};

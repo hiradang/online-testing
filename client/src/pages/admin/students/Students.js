@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.css'
 import swal from 'sweetalert2';
-import {BrowserRouter as Router, Link, Route, Switch} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 function Students() {
     const [data, setData] = useState({
@@ -21,15 +21,12 @@ function Students() {
     var [tempListStudent, setTempListStudent] = useState([])
     function onSort(e) {
         const newSort = {...sort};
-        console.log(e.target.id)
         if (sort.by === e.target.id) {
             newSort.value = (sort.value === 1 ? -1 : 1)
         } else {
             newSort.by = e.target.id;
             newSort.value = 1;
         }
-        
-        console.log(newSort)
         setTempListStudent(tempListStudent.sort((studentOne, studentTwo) => {
             if (newSort.by === 'idSort') {
                 if (studentOne.student_id.toString() > studentTwo.student_id.toString()) return +newSort.value
@@ -65,10 +62,6 @@ function Students() {
             setTempListStudent(response.data);
         });
     }, [])
-    function update(e) {
-        var student = e.target.parentNode.parentNode;
-        history.push(`/admin/manage/students/update/${student.id}`)
-    }
     function del(e) {
         swal.fire({
             title: "Xóa sinh viên?",
@@ -131,8 +124,8 @@ function Students() {
                             <td onClick={()=> {
                                 history.push(`/admin/manage/students/${value.student_id}`)
                             }} >{value.faculty}</td>
-                            <td><i class="fas fa-edit" onClick = {(e) => update(e)} ></i></td>
-                            <td><i className="delAddStudentCourse fas fa-trash" onClick = {(e) => del(e)} ></i></td>
+                            <td> <a href = {`/admin/manage/students/update/${value.student_id}`} className="fas fa-edit"> </a></td>
+                            <td><i className="delAddOfAdmin fas fa-trash" onClick = {(e) => del(e)} ></i></td>
                         </tbody>
                     );
                 })}

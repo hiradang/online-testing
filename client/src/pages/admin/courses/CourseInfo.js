@@ -5,15 +5,14 @@ import { useParams } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-function StudentInfo() {
+function CourseInfo() {
     let {id} = useParams();
-    const [studentInfo, setStudentInfo] = useState([]);
+    const [courseInfo, setCourseInfo] = useState([]);
     useEffect(()=> {
-        axios.get(`http://localhost:3001/admin/manage/student-course/${id}`).then((response) =>{
-            setStudentInfo(response.data)
+        axios.get(`http://localhost:3001/admin/manage/student-course/details/${id}`).then((response) =>{
+            setCourseInfo(response.data)
         });
     }, [])
-    console.log(studentInfo)
     return (
         <div>      
             <table className="table table-striped">
@@ -26,7 +25,7 @@ function StudentInfo() {
                     <th>Tên môn học</th>
                 </thead>
                 
-                {studentInfo.map((value, key) => {
+                {courseInfo.map((value, key) => {
                 return (
                     <tbody>
                     <td>{key+1}</td>
@@ -46,4 +45,4 @@ function StudentInfo() {
     )
 }
 
-export default StudentInfo
+export default CourseInfo

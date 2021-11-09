@@ -1,3 +1,4 @@
+/* students */
 .card {
     margin: 10px;
 }
@@ -7,7 +8,6 @@
 
 .formAddStudent {
   border: 2px solid rgb(106, 106, 223);
-  /* height: 370px; */
   width: 350px;
   margin: 50px auto;
 }
@@ -43,20 +43,22 @@ label {
   margin-top: 5px;
   cursor: pointer;
 }
-.delAddStudentCourse {
+.delAddOfAdmin {
   color: rgb(238, 88, 88);
   margin-left: 16px;
   cursor: pointer;
 }
 
-/* students */
 .btnStudent {
   margin: 10px;
 }
-.searchStudent {
+.searchStudent, .searchTeacher {
   height: 25px;
   margin-bottom: 5px;
 }
-.infoStudent {
+.infoStudent, .infoTeacher {
   cursor: pointer;
+}
+a {
+  text-decoration: none;
 }

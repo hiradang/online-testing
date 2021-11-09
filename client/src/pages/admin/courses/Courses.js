@@ -3,38 +3,36 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useHistory } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 import {BrowserRouter as Router, Link, Route, Switch} from "react-router-dom";
 
-
-function Teacher() {
-    const [listTeachers, setListTeachers] = useState([]);
+function Courses() {
+    const [listCourses, setListCourses] = useState([]);
     let history = useHistory();
     useEffect(()=> {
-        axios.get("http://localhost:3001/admin/manage/teachers").then((response) =>{
-            setListTeachers(response.data)
+        axios.get("http://localhost:3001/admin/manage/courses").then((response) =>{
+            setListCourses(response.data)
         });
     }, [])
     return (
         <div>
-            <Link to = "/admin/manage/teachers/add" className="btn btn-primary">Thêm giáo viên</Link>
+            <Link to = "/admin/manage/students/add" className="btn btn-primary">Thêm lớp học phần</Link>
             <table className="table table-striped">
                 <thead>
                     <th>#</th>
-                    <th>Mã số giáo viên</th>
-                    <th>Họ và tên</th>
-                    <th>Email</th>
+                    <th>Mã lớp học phần</th>
+                    <th>Tên môn học</th>
+                    <th>Giảng viên</th>
                 </thead>
                 
-                {listTeachers.map((value, key) => {
+                {listCourses.map((value, key) => {
                     return (
                         <tbody className = "row_table" onClick={()=> {
-                            history.push(`/admin/manage/teachers/${value.teacher_id}`)
+                            history.push(`/admin/manage/courses/${value.course_id}`)
                         }} >
                         <td>{key+1}</td>
-                        <td>{value.teacher_id}</td>
+                        <td>{value.course_id}</td>
+                        <td>{value.course_name}</td>
                         <td>{value.teacher_name}</td>
-                        <td>{value.email}</td>
                         </tbody>
                     );
                 })}
@@ -48,4 +46,4 @@ function Teacher() {
     )
 }
 
-export default Teacher
+export default Courses

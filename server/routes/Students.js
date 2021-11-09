@@ -53,7 +53,6 @@ router.post("/update", async (req, res) => {
 
 router.post("/", async (req, res) => {
     const student = req.body;
-    console.log(student)
     const checkStudent = await Student.findByPk(student.student_id);    
     if (checkStudent === null) {
       await Student.create({
