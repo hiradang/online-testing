@@ -5,8 +5,7 @@ import TeacherHome from './pages/teacher/TeacherHome';
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import route from './router/route';
 
-function App() {
-  
+function App() { 
   return ( 
     <div className="App">
       <Router>
