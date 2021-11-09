@@ -32,7 +32,6 @@ function CourseAddStudent() {
         for (let i = 0; i< student_id.length; i++) {
             newData.student_id[i] = student_id[i].value;
         }
-        console.log(data)
         setData(newData);
         e.preventDefault();
         axios.post("http://localhost:3001/admin/manage/student-course", data).then((response) => {
