@@ -7,10 +7,12 @@ router.get("/", async (req, res) => {
     res.json(listAccounts)
 })
 
-router.post("/", async (req, res) => {
-    const account = req.body;
-    await Accounts.create(account);
-    res.json(account);
-  });
+router.post("/login", async (req, res) => {
+  const { username, password } = req.body;
+  const user = await Accounts.findByPk(username);
+  if (!user) res.json({ error: "User Doesn't Exist" });
+  if (user.password !== password) res.json({ error: "Wrong Username And Password Combination" });
+  res.json("YOU LOGGED IN!!!");
+});
 
 module.exports = router;

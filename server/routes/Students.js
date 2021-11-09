@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const {Students} = require('../models')
+const {Students} = require('../models');
+const Accounts = require('../models/Accounts');
 
 router.get("/", async (req, res) => {
     const listStudent = await Students.findAll();
@@ -14,9 +15,14 @@ router.get("/delete/:id", async (req, res) => {
       student_id: id
     }
   })
-  Student_Course.destroy({
+  await Student_Course.destroy({
     where: {
       student_id: id
+    }
+  })
+  await Accounts.destroy({
+    where: {
+      id_account: student.student_id
     }
   })
   const listStudent = await Student.findAll();
@@ -57,6 +63,11 @@ router.post("/", async (req, res) => {
         student_id: student.student_id,
         name: student.name,
         faculty: student.faculty
+      })
+      await Accounts.create({
+        id_account: student.student_id,
+        password: student.student_id,
+        role: "student"
       })
       for (let i = 0; i< student.course_id.length; i++) {
         if (student.course_id[i] !== null) {

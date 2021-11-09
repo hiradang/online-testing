@@ -1,20 +1,12 @@
 
-// Admin
-import Students from '../pages/admin/Students'
-import AddStudent from '../pages/admin/AddStudent';
-import Teacher from '../pages/admin/Teacher';
-import Courses from '../pages/admin/Courses';
-import StudentInfo from '../pages/admin/StudentInfo';
-import TeacherInfo from '../pages/admin/TeacherInfo';
-import CourseInfo from '../pages/admin/CourseInfo';
-
-// Student
+// Teacher
 import ListStudent from '../pages/teacher/ListStudent'
 import CourseDetail from '../pages/teacher/CourseDetail'
 import AddExam from '../pages/teacher/AddExam'
 import ViewExam from '../pages/teacher/ViewExam'
 import EditExam from '../pages/teacher/EditExam'
 
+// Admin
 import Students from '../pages/admin/students/Students'
 import AddStudent from '../pages/admin/students/AddStudent';
 import Teacher from '../pages/admin/teachers/Teacher';

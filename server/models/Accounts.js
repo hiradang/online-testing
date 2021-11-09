@@ -3,6 +3,7 @@ module.exports = (sequelize, DataTypes) => {
         id_account: {
             type: DataTypes.STRING,
             allowNull: false,
+            primaryKey: true
         },
         password: {
             type: DataTypes.STRING,

@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const {Teachers} = require('../models');
+const Accounts = require('../models/Accounts');
 
 router.get("/:id", async (req, res) => {
   let teacher_id = req.params.id;
@@ -30,6 +31,11 @@ router.get("/delete/:id", async (req, res) => {
       teacher_id: id
     }
   })
+  await Accounts.destroy({
+    where: {
+      id_account: id
+    }
+  })
   const listTeachers = await Teachers.findAll();
   res.json(listTeachers)
 });
@@ -39,6 +45,11 @@ router.post("/", async (req, res) => {
     const checkTeacher = await Teachers.findByPk(teacher.teacher_id);    
     if (checkTeacher === null) {
       await Teachers.create(teacher);
+      await Accounts.create({
+        id_account: teacher.student_id,
+        password: teacher.student_id,
+        role: "teacher"
+      })
       res.json(teacher);
     }
   });
