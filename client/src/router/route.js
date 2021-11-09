@@ -1,20 +1,5 @@
 
 // Admin
-import Students from '../pages/admin/Students'
-import AddStudent from '../pages/admin/AddStudent';
-import Teacher from '../pages/admin/Teacher';
-import Courses from '../pages/admin/Courses';
-import StudentInfo from '../pages/admin/StudentInfo';
-import TeacherInfo from '../pages/admin/TeacherInfo';
-import CourseInfo from '../pages/admin/CourseInfo';
-
-// Student
-import ListStudent from '../pages/teacher/ListStudent'
-import CourseDetail from '../pages/teacher/CourseDetail'
-import AddExam from '../pages/teacher/AddExam'
-import ViewExam from '../pages/teacher/ViewExam'
-import EditExam from '../pages/teacher/EditExam'
-
 import Students from '../pages/admin/students/Students'
 import AddStudent from '../pages/admin/students/AddStudent';
 import Teacher from '../pages/admin/teachers/Teacher';
@@ -28,6 +13,18 @@ import UpdateTeacher from '../pages/admin/teachers/UpdateTeacher';
 import AddCourse from '../pages/admin/courses/AddCourse';
 import UpdateCourse from '../pages/admin/courses/UpdateCourse';
 import CourseAddStudent from '../pages/admin/courses/CourseAddStudent';
+
+// Teacher
+import ListStudent from '../pages/teacher/ListStudent'
+import CourseDetail from '../pages/teacher/CourseDetail'
+import AddExam from '../pages/teacher/AddExam'
+import ViewExam from '../pages/teacher/ViewExam'
+import EditExam from '../pages/teacher/EditExam'
+
+// Student 
+import CourseDetailStudent from '../pages/student/CourseDetail'
+import DoExam from '../pages/student/DoExam'
+
 // eslint-disable-next-line import/no-anonymous-default-export
 export default [ 
     {
@@ -105,4 +102,14 @@ export default [
         component: EditExam
     },
     
+
+    //student
+    {
+        path: "/student/:studentId/:courseId",
+        component: CourseDetailStudent
+    },
+    {
+        path: "/student/:studentId/:courseId/do-exam/:examId",
+        component: DoExam
+    },
 ];
