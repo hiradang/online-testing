@@ -56,7 +56,7 @@ router.post("/:examId", async (req, res) => {
   })
 
   await exam.save();
-  res.send("updated");
+  res.send(" exam updated");
 });
 
 module.exports = router;

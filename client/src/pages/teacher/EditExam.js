@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import axios from 'axios';
 import { useHistory, useParams } from "react-router";
 import {ErrorMessage, Formik, Form, Field} from 'formik';
+import moment from 'moment';
+import EditQuestion from "./EditQuestion";
+import {Link} from 'react-router-dom';
 
 function AddExam() {
     const {examId} = useParams();
@@ -11,14 +14,22 @@ function AddExam() {
     const [duration, setDuration] = useState("")
     const [timeStart, setTimeStart] = useState("")
     const [numberQuestion, setNumberQuestion] = useState("")
+    const [questionList, setQuestionList] = useState([])
     const history = useHistory();
 
     useEffect(()=> {
         axios.get(`http://localhost:3001/admin/manage/exams/examId/${examId}`, ).then((res) => {
             setExamName(res.data.examName);
             setDuration(res.data.duration);
-            setTimeStart(res.data.timeStart);
             setNumberQuestion(res.data.numberQuestion);
+
+            // Edit the time
+            let timeStartGMT7 = moment(res.data.timeStart.substring(0, 16)).add(7, "hours").toDate();
+            setTimeStart(moment(timeStartGMT7).format("YYYY-MM-DDThh:mm"));
+        })
+
+        axios.get(`http://localhost:3001/admin/manage/questions/${examId}`).then((res) => {
+            setQuestionList(res.data);
         })
     }, [])
 
@@ -34,11 +45,11 @@ function AddExam() {
             window.alert("Sửa ca thi thành công!");
             history.goBack(`/teacher/${teacherId}/${courseId}`);
         })
-        console.log(editedExam);
     }
 
     return (
         <div className="page-container"> 
+            <Link to={`/teacher/${teacherId}/${courseId}`}>Quay lại</Link>
             <Formik onSubmit={handleEditCourse}
                 initialValues={{}}
             >
@@ -66,7 +77,7 @@ function AddExam() {
                         onChange={(e) => setDuration(e.target.value)}
                     />
 
-                    <label>Thời gian tổ chức thi: </label>
+                    <label>Thời gian tổ chức thi (MM/DD/YYYY) </label>
                     <ErrorMessage className="errorMessage" name="timeStart" component="div" />
                     <Field
                         type="datetime-local"
@@ -86,19 +97,19 @@ function AddExam() {
                         name="numberQuestion"
                         value={numberQuestion}
                         onChange={(e) => setNumberQuestion(e.target.value)}
+                        disabled="true"
                     />
-            
-
-                    <button 
-                        type="button"
-                        className="addQuestionbtn">
-                        Thêm câu hỏi
-                    </button>
                     <button className="button submitButton" type="submit">
                         Sửa ca thi
                     </button>
+
                 </Form>
             </Formik>
+            {questionList.map((question, key) => {
+                return (
+                    <EditQuestion question={question} keyQuestion={key} />
+                )
+            })}
         </div>
     )
 }

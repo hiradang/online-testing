@@ -3,6 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from 'react-router';
 import { Link, useHistory } from 'react-router-dom';
+import moment from 'moment';
 
 function CourseDetail() {
     let {courseId} = useParams();
@@ -13,8 +14,12 @@ function CourseDetail() {
     useEffect(()=> {
         axios.get(`http://localhost:3001/admin/manage/exams/${courseId}`, ).then((res) => {
             setListExams(res.data);
-            let lastExamId = res.data[res.data.length - 1].examId;
-            setNumberExam(parseInt(lastExamId.split('--')[1]) + 1);
+            if (res.data.length > 0) {
+                let lastExamId = res.data[res.data.length - 1].examId;
+                setNumberExam(parseInt(lastExamId.split('--')[1]) + 1);
+            } else {
+                setNumberExam(0);
+            }
         })
     }, [])
 
@@ -23,8 +28,12 @@ function CourseDetail() {
             axios.delete(`http://localhost:3001/admin/manage/exams/${examid}`)
             axios.get(`http://localhost:3001/admin/manage/exams/${courseId}`, ).then((res) => {
                 setListExams(res.data);
-                let lastExamId = res.data[res.data.length - 1].examId;
-                setNumberExam(parseInt(lastExamId.split('--')[1]) + 1);
+                if (res.data.length > 0) {
+                    let lastExamId = res.data[res.data.length - 1].examId;
+                    setNumberExam(parseInt(lastExamId.split('--')[1]) + 1);
+                } else {
+                    setNumberExam(0)
+                }
             })
             window.location.reload();
         }
@@ -47,24 +56,45 @@ function CourseDetail() {
 
             <div>
                 {listExams.map((exam, key) => {
-                    return (
-                        <div className="exam-info">
-                            <ul
-                                onClick={() => {
-                                    // push to CourseDetail
-                                    history.push(`/teacher/${teacherId}/${courseId}/view-exam/${exam.examId}`)
-                                }}
-                            > 
-                            Bài kiểm tra số {++key}
-                                <li>Tên bài kiểm tra: {exam.examName}</li>
-                                <li>Thời gian mở: {exam.timeStart}</li>
-                                <li>Thời gian làm bài: {exam.duration}</li>
-                                <li>Số câu hỏi: {exam.numberQuestion}</li>
-                            </ul>
+                    const examStartTime = moment(exam.timeStart.substring(0, 16)).add(7, "hours").toDate();
+                    const examFinishTime = moment(examStartTime).add(exam.duration, "minutes").toDate();
+                    const currentTime = new Date();
+                    let detailButton;
+                    if (key === 0) {
+                        console.log("Client: " + exam.timeStart);
+                        console.log("Start time: " + examStartTime);
+                    }
+
+                    // Decide which button to appear depend on exam happened or not?
+                    if (currentTime < examFinishTime) {
+                        detailButton = (
+                        <div>
                             <button onClick={() => handleDeleteExam(exam.examId)}>Xóa bài thi</button>
                             <button onClick={() => {
                                 history.push(`/teacher/${teacherId}/${courseId}/edit-exam/${exam.examId}`)
                             }}>Sửa ca thi</button>
+                        </div>)
+                    } else {
+                        detailButton = (<button onClick={() => {
+                            history.push(`/teacher/${teacherId}/${courseId}/view-exam/${exam.examId}`)
+                        }}>Xem lại ca thi</button>)
+                    }
+                    return (
+                        <div className="exam-info">
+                            <ul> 
+                            Bài kiểm tra số {++key}
+                                <li>Tên bài kiểm tra: {exam.examName}</li>
+                                <li>Thời gian mở: {moment(examStartTime).format('DD-MM-YYYY hh:mm A')}</li>
+                                <li>Thời gian làm bài: {exam.duration}</li>
+                                <li>Số câu hỏi: {exam.numberQuestion}</li>
+                            </ul>
+
+                            {/* Test purpose only */}
+                            {/* <button onClick={() => {
+                            history.push(`/teacher/${teacherId}/${courseId}/edit-exam/${exam.examId}`)
+                        }}>Sửa ca thi</button> */}
+
+                            {detailButton}
                         </div>
                     )
                 })}

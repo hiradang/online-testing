@@ -21,4 +21,22 @@ router.post("/", async (req, res) => {
     res.json(question);
 });
 
+// Edit question
+router.post("/:questionId", async (req, res) => {
+  const questionId = req.body.id;
+  const updateQuestion = req.body;
+  
+  const question = await Questions.findByPk(questionId);
+  question.update({
+    questionContent: updateQuestion.questionContent,
+    result : updateQuestion.result,
+    choice1 : updateQuestion.choice1,
+    choice2 : updateQuestion.choice2,
+    choice3 : updateQuestion.choice3
+  })
+
+  await question.save();
+  res.send("question updated");
+});
+
 module.exports = router;

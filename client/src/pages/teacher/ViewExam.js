@@ -33,7 +33,6 @@ function ViewExam() {
                             <input type="text" value={question.choice2} />
                             <input type="text" value={question.choice3} />
                         </fieldset>
-                        <button>Sua</button>
                     </div>
                 )
             })}

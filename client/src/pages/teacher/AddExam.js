@@ -144,7 +144,7 @@ function AddExam() {
                         placeholder=""
                     />
 
-                    <label>Thời gian tổ chức thi: </label>
+                    <label>Thời gian tổ chức thi (MM/DD/YY) </label>
                     <ErrorMessage className="errorMessage" name="timeStart" component="div" />
                     <Field
                         type="datetime-local"
