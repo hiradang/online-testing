@@ -4,13 +4,16 @@ import axios from 'axios';
 import { useParams } from 'react-router';
 import Question from './Question';
 import Countdown from 'react-countdown';
+import {useHistory} from 'react-router-dom';
 
 function DoExam() {
     const {examId} = useParams();
     const {studentId} = useParams();
+    const {courseId} = useParams();
     const [listQuestions, setListQuestions] = useState([]);
     const checkQuestionCorrect = [];
     const [timeLeft, setTimeLeft] = useState("");
+    const history = useHistory();
     
     useEffect(()=>{
         axios.get(`http://localhost:3001/admin/manage/questions/${examId}`).then((response) =>{
@@ -38,7 +41,6 @@ function DoExam() {
     for (var i = 0; i < numberQuestion ; i++) {
         checkQuestionCorrect.push(0);
     }
-
     
     const checkQuestion = function(key, res) {
         if (res === "true" && checkQuestionCorrect[key] === 0) {
@@ -48,7 +50,6 @@ function DoExam() {
         }
     }
     
-
     function countFinalPoint() {
         let count = 0;
         for (var i = 0; i < numberQuestion; i++) {
@@ -60,7 +61,15 @@ function DoExam() {
 
     const handleSubmit = function(e) {
         let finalPoint = countFinalPoint();
-        console.log("Final point: " + finalPoint);
+        let gradeInfo = {
+            grade: finalPoint,
+            isFinish: true
+        }
+        axios.post(`http://localhost:3001/admin/manage/grades/${studentId}/${examId}`, gradeInfo)
+        .then((res) => {
+            window.alert("Bạn đã hoàn thành bài thi!")
+            history.push(`/student/${studentId}/${courseId}`);
+        })
     }
 
     return (

@@ -9,23 +9,37 @@ function CourseDetail() {
     let {courseId} = useParams();
     let {studentId} = useParams();
     const [listExams, setListExams] = useState([]);
+    const [takenExam, setTakenExams] = useState([]);
     const history = useHistory();
     useEffect(()=> {
         axios.get(`http://localhost:3001/admin/manage/exams/${courseId}`, ).then((res) => {
             setListExams(res.data);
         })
 
+        axios.get(`http://localhost:3001/admin/manage/grades/studentId/${studentId}`).then((res) => {
+            const temp = res.data.filter((value) => {
+                return (value.isFinish);
+            })
+
+            const temp2 = temp.map((value, key) => {
+                return (value.examId)
+            })
+
+            setTakenExams(temp2);
+        })
+
     }, [])
 
-    function handleTakeExam(examId) {
+    async function handleTakeExam(e, examId) {
         let gradeInfo = {
             examId: examId,
             studentId: studentId,
             realTimeStart : Date.now(),
-            grade: 0
+            grade: 0,
+            isFinish: false
         }
 
-        axios.get(`http://localhost:3001/admin/manage/grades/${studentId}/${examId}`).then((response) =>{
+        await axios.get(`http://localhost:3001/admin/manage/grades/${studentId}/${examId}`).then((response) =>{
             if (response.data.length === 0) {
                 axios.post("http://localhost:3001/admin/manage/grades", gradeInfo)
                     .then((res) => {
@@ -34,8 +48,7 @@ function CourseDetail() {
             }
         })
 
-
-            history.push(`/student/${studentId}/${courseId}/do-exam/${examId}`);
+        history.push(`/student/${studentId}/${courseId}/do-exam/${examId}`);
     }
 
     return (
@@ -55,17 +68,20 @@ function CourseDetail() {
                     let detailButton;
 
                     // Decide which button to appear depend on exam happened or not?
-                    if (currentTime < examStartTime) {
+                    if (takenExam.includes(exam.examId)) {
+                        detailButton = (<button onClick={() => {
+                            history.push(`/student/${studentId}/${courseId}/view-exam/${exam.examId}`)
+                        }}>Xem lại ca thi</button>)
+                    } else if (currentTime < examStartTime) {
                         detailButton = "Chưa đến giờ làm bài"
-                    } else if (false) {
-                        detailButton = "Quay lai bai thi"
                     } else if (currentTime < examFinishTime) {
-                        detailButton = (<button onClick={() => handleTakeExam(exam.examId)}>Tham gia thi</button>)
+                        detailButton = (<button onClick={(e) => handleTakeExam(e, exam.examId)}>Tham gia thi</button>)
                     } else {
                         detailButton = (<button onClick={() => {
                             history.push(`/student/${studentId}/${courseId}/view-exam/${exam.examId}`)
                         }}>Xem lại ca thi</button>)
                     }
+
                     return (
                         <div className="exam-info">
                             <ul> 

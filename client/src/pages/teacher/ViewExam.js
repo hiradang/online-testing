@@ -20,7 +20,7 @@ function ViewExam() {
     return (
         <div className="page-container">
             <Link to={`/teacher/${teacherId}/${courseId}`}>Quay lại</Link>
-            <Link to="/">Xem điểm của sinh viên</Link>
+            <Link to={`/teacher/${teacherId}/${courseId}/view-grade/${examId}`}>Xem điểm của sinh viên</Link>
             {listQuestions.map((question, key) => {
                 return (
                     <div>

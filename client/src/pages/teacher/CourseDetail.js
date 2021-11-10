@@ -89,11 +89,6 @@ function CourseDetail() {
                                 <li>Số câu hỏi: {exam.numberQuestion}</li>
                             </ul>
 
-                            {/* Test purpose only */}
-                            {/* <button onClick={() => {
-                            history.push(`/teacher/${teacherId}/${courseId}/edit-exam/${exam.examId}`)
-                        }}>Sửa ca thi</button> */}
-
                             {detailButton}
                         </div>
                     )

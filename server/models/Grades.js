@@ -15,6 +15,10 @@ module.exports = (sequelize, DataTypes) => {
         grade: {
             type: DataTypes.FLOAT,
             allowNull: false,
+        },
+        isFinish: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
         }
     });
 

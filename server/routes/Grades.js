@@ -1,6 +1,29 @@
 const express = require('express');
 const router = express.Router();
 const { Grades } = require('../models')
+const { Exams } = require('../models')
+
+// Get grade based on examId
+router.get("/examId/:examId", async (req, res) => {
+  const examId = req.params.examId;
+  const grade = await Grades.findAll({
+      where: {
+        examId: examId,
+      }
+  });
+  res.json(grade);
+})
+
+// Get grade based on studentId
+router.get("/studentId/:studentId", async (req, res) => {
+  const studentId = req.params.studentId;
+  const grade = await Grades.findAll({
+    where: {
+      studentId: studentId,
+    }
+  });
+  res.json(grade);
+})
 
 // Get grade based on examId and studentId
 router.get("/:studentId/:examId", async (req, res) => {
@@ -9,33 +32,11 @@ router.get("/:studentId/:examId", async (req, res) => {
   const grade = await Grades.findAll({
       where: {
         examId: examId,
-        studentId: studentId
+        studentId: studentId,
       }
   });
   res.json(grade);
 })
-
-// Get grade based on examId
-router.get("/examId/:examId", async (req, res) => {
-    const examId = req.params.examId;
-    const grade = await Grades.findAll({
-        where: {
-          examId: examId
-        }
-    });
-    res.json(grade);
-  })
-
-  // Get grade based on studentId
-router.get("/studentId/:studentId", async (req, res) => {
-    const studentId = req.params.studentId;
-    const grade = await Grades.findAll({
-        where: {
-            studentId: studentId
-        }
-    });
-    res.json(grade);
-  })
 
 router.get("/", async (req, res) => {
     const listGrades = await Grades.findAll();
@@ -52,20 +53,23 @@ router.post("/", async (req, res) => {
 
 
 // Update Exam
-// router.post("/:examId", async (req, res) => {
-//   const examId = req.params.examId;
-//   const updateExam = req.body;
+router.post("/:studentId/:examId", async (req, res) => {
+  const examId = req.params.examId;
+  const studentId = req.params.studentId;
+  const updateGrade = req.body;
   
-//   const exam = await Grades.findByPk(examId);
-//   exam.update({
-//    examName : updateExam.examName,
-//    duration : updateExam.duration,
-//    numberQuestion : updateExam.numberQuestion,
-//    timeStart : updateExam.timeStart
-//   })
+  const targetGrade = await Grades.findOne({where : {
+    examId: examId,
+    studentId: studentId
+  }})
 
-//   await exam.save();
-//   res.send(" exam updated");
-// });
+  targetGrade.update({
+    grade : updateGrade.grade,
+    isFinish : updateGrade.isFinish,
+  })
+
+  await targetGrade.save();
+  res.send(" grade saved");
+});
 
 module.exports = router;
