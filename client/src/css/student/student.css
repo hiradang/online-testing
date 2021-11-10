@@ -6,4 +6,11 @@
     position: fixed;
     right: 30px;
     top: 50px;
+    display: flex;
+    flex-direction: column;
 } 
+
+.showQuestion {
+    display: flex;
+    flex-direction: column;
+}

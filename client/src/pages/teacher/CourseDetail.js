@@ -58,12 +58,11 @@ function CourseDetail() {
             <div>
                 {listExams.map((exam, key) => {
                     const examStartTime = moment(exam.timeStart.substring(0, 16)).add(7, "hours").toDate();
+                    // const examStartTime = moment(exam.timeStart.substring(0, 16)).utcOffset(7).toDate();
                     const examFinishTime = moment(examStartTime).add(exam.duration, "minutes").toDate();
                     const currentTime = new Date();
                     let detailButton;
                     if (key === 0) {
-                        console.log("Client: " + exam.timeStart);
-                        console.log("Start time: " + examStartTime);
                     }
 
                     // Decide which button to appear depend on exam happened or not?
@@ -86,7 +85,7 @@ function CourseDetail() {
                             Bài kiểm tra số {++key}
                                 <li>Tên bài kiểm tra: {exam.examName}</li>
                                 <li>Thời gian mở: {moment(examStartTime).format('DD-MM-YYYY hh:mm A')}</li>
-                                <li>Thời gian làm bài: {exam.duration}</li>
+                                <li>Thời gian làm bài: {exam.duration} phút</li>
                                 <li>Số câu hỏi: {exam.numberQuestion}</li>
                             </ul>
 

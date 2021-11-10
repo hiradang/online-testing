@@ -6,7 +6,7 @@ import moment from 'moment';
 import EditQuestion from "./EditQuestion";
 import {Link} from 'react-router-dom';
 
-function AddExam() {
+function EditExam() {
     const {examId} = useParams();
     const {teacherId} = useParams();
     const {courseId} = useParams();
@@ -114,4 +114,4 @@ function AddExam() {
     )
 }
 
-export default AddExam;
+export default EditExam;

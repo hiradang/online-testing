@@ -14,7 +14,29 @@ function CourseDetail() {
         axios.get(`http://localhost:3001/admin/manage/exams/${courseId}`, ).then((res) => {
             setListExams(res.data);
         })
+
     }, [])
+
+    function handleTakeExam(examId) {
+        let gradeInfo = {
+            examId: examId,
+            studentId: studentId,
+            realTimeStart : Date.now(),
+            grade: 0
+        }
+
+        axios.get(`http://localhost:3001/admin/manage/grades/${studentId}/${examId}`).then((response) =>{
+            if (response.data.length === 0) {
+                axios.post("http://localhost:3001/admin/manage/grades", gradeInfo)
+                    .then((res) => {
+                        history.push(`/student/${studentId}/${courseId}/do-exam/${examId}`);
+                    })
+            }
+        })
+
+
+            history.push(`/student/${studentId}/${courseId}/do-exam/${examId}`);
+    }
 
     return (
         <div className="page-container"> 
@@ -31,18 +53,14 @@ function CourseDetail() {
                     const examFinishTime = moment(examStartTime).add(exam.duration, "minutes").toDate();
                     const currentTime = new Date();
                     let detailButton;
-                    if (key === 0) {
-                        console.log("Client: " + exam.timeStart);
-                        console.log("Start time: " + examStartTime);
-                    }
 
                     // Decide which button to appear depend on exam happened or not?
                     if (currentTime < examStartTime) {
                         detailButton = "Chưa đến giờ làm bài"
+                    } else if (false) {
+                        detailButton = "Quay lai bai thi"
                     } else if (currentTime < examFinishTime) {
-                        detailButton = (<button onClick={() => {
-                            history.push(`/student/${studentId}/${courseId}/do-exam/${exam.examId}`)
-                        }}>Tham gia thi</button>)
+                        detailButton = (<button onClick={() => handleTakeExam(exam.examId)}>Tham gia thi</button>)
                     } else {
                         detailButton = (<button onClick={() => {
                             history.push(`/student/${studentId}/${courseId}/view-exam/${exam.examId}`)
@@ -54,7 +72,7 @@ function CourseDetail() {
                             Bài kiểm tra số {++key}
                                 <li>Tên bài kiểm tra: {exam.examName}</li>
                                 <li>Thời gian mở: {moment(examStartTime).format('DD-MM-YYYY hh:mm A')}</li>
-                                <li>Thời gian làm bài: {exam.duration}</li>
+                                <li>Thời gian làm bài: {exam.duration} phút</li>
                                 <li>Số câu hỏi: {exam.numberQuestion}</li>
                             </ul>
                             {detailButton}
