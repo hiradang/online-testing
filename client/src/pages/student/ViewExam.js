@@ -17,11 +17,15 @@ function ViewExam() {
     }, [])
     
     return (
-        <div className="page-container do-exam">
-            <Link to={`/student/${studentId}/${courseId}`}>Quay lại</Link><br/> 
+        <div className="page-container view-exam">
+            <Link to={`/student/${studentId}/${courseId}`}>
+            <i class="fas fa-arrow-left"></i>
+                <span> </span>
+                Quay lại
+            </Link><br/> 
             <h2>Bạn đã hoàn thành bài thi</h2>
             <p>Điểm số của bạn cho bài thi này là: {gradeInfo.grade}</p>
-            <p>Bạn không được phép thực hiện lại bài thi này</p>
+            <p>Bạn không được phép thực hiện lại bài thi này.</p>
         </div>
     )
 }

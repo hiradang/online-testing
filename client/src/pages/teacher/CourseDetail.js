@@ -45,7 +45,9 @@ function CourseDetail() {
             <div>
                 <Link to={`/teacher/${teacherId}`}
                 className="link">
-                Quay lại
+                    <i class="fas fa-arrow-left"></i>
+                    <span> </span>
+                    Quay lại
                 </Link>          
             </div>
             <div>
@@ -69,15 +71,16 @@ function CourseDetail() {
                     if (currentTime < examFinishTime) {
                         detailButton = (
                         <div>
-                            <button onClick={() => handleDeleteExam(exam.examId)}>Xóa bài thi</button>
+                            <button onClick={() => handleDeleteExam(exam.examId)}
+                            className="primaryButton">Xóa bài thi</button>
                             <button onClick={() => {
                                 history.push(`/teacher/${teacherId}/${courseId}/edit-exam/${exam.examId}`)
-                            }}>Sửa ca thi</button>
+                            }} className="primaryButton">Sửa ca thi</button>
                         </div>)
                     } else {
                         detailButton = (<button onClick={() => {
                             history.push(`/teacher/${teacherId}/${courseId}/view-exam/${exam.examId}`)
-                        }}>Xem lại ca thi</button>)
+                        }} className="primaryButton">Xem lại ca thi</button>)
                     }
                     return (
                         <div className="exam-info">
@@ -95,7 +98,7 @@ function CourseDetail() {
                 })}
             </div>
 
-            <button className="toCreateNewExamBtn">
+            <button className="toCreateNewExamBtn commonButton" >
                 <Link to={`/teacher/${teacherId}/${courseId}/new-exam${numberExam}`}
                     className="link">
                     Tạo một bài thi mới

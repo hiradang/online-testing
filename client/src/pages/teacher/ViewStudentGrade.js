@@ -23,7 +23,10 @@ function ViewStudentGrade() {
 
     return (
         <div className="page-container list-student-container">
-            <Link to={`/teacher/${teacherId}/${courseId}/view-exam/${examId}`}>Quay lại</Link><br/>
+            <Link to={`/teacher/${teacherId}/${courseId}/view-exam/${examId}`}>
+                <i class="fas fa-arrow-left"></i>
+                <span> </span>
+                Quay lại</Link><br/>
             <table>
                 <tr>
                     <th className="text-center">STT</th>

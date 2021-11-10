@@ -77,7 +77,7 @@ function DoExam() {
             <div className="left">
                 {listQuestions.map((question, key) => {
                     return (
-                        <div id={key}> 
+                        <div id={key} className="examQuestion"> 
                             <Question
                                 question={question} 
                                 questionKey={key} 
@@ -87,7 +87,8 @@ function DoExam() {
                     )
                 })}
 
-                <button onClick={handleSubmit}>Nộp bài</button>
+                <button onClick={handleSubmit}
+                className="commonButton">Nộp bài</button>
             </div>
 
             <div className="right">

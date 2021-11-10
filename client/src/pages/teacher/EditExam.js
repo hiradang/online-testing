@@ -49,7 +49,10 @@ function EditExam() {
 
     return (
         <div className="page-container"> 
-            <Link to={`/teacher/${teacherId}/${courseId}`}>Quay lại</Link>
+            <Link to={`/teacher/${teacherId}/${courseId}`}>
+                <i class="fas fa-arrow-left"></i>
+                <span> </span>
+                Quay lại</Link>
             <Formik onSubmit={handleEditCourse}
                 initialValues={{}}
             >
@@ -99,7 +102,7 @@ function EditExam() {
                         onChange={(e) => setNumberQuestion(e.target.value)}
                         disabled="true"
                     />
-                    <button className="button submitButton" type="submit">
+                    <button className="button commonButton submitButton" type="submit">
                         Sửa ca thi
                     </button>
 

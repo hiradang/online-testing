@@ -56,6 +56,8 @@ function CourseDetail() {
             <div>
                 <Link to={`/student/${studentId}`}
                 className="link">
+                <i class="fas fa-arrow-left"></i>
+                <span> </span>
                 Quay lại
                 </Link>          
             </div>
@@ -71,15 +73,16 @@ function CourseDetail() {
                     if (takenExam.includes(exam.examId)) {
                         detailButton = (<button onClick={() => {
                             history.push(`/student/${studentId}/${courseId}/view-exam/${exam.examId}`)
-                        }}>Xem lại ca thi</button>)
+                        }} className="primaryButton">Xem lại ca thi</button>)
                     } else if (currentTime < examStartTime) {
                         detailButton = "Chưa đến giờ làm bài"
                     } else if (currentTime < examFinishTime) {
-                        detailButton = (<button onClick={(e) => handleTakeExam(e, exam.examId)}>Tham gia thi</button>)
+                        detailButton = (<button onClick={(e) => handleTakeExam(e, exam.examId)} 
+                        className="primaryButton">Tham gia thi</button>)
                     } else {
                         detailButton = (<button onClick={() => {
                             history.push(`/student/${studentId}/${courseId}/view-exam/${exam.examId}`)
-                        }}>Xem lại ca thi</button>)
+                        }} className="primaryButton">Xem lại ca thi</button>)
                     }
 
                     return (

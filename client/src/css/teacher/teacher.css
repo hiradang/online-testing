@@ -2,23 +2,33 @@
     text-align: center;
 }
 
+.mb-16 {
+    margin-bottom: 16px;
+}
+
 /* Teacher home */
 
 .page-container {
-    margin: 50px;
+    padding: 20px 50px;
 }
 
 .list-title {
     font-size: 2.5rem;
+    padding-bottom: 20px;
 }
 
 .courses-item  {
     font-size: 2rem;
     list-style-type: none;
-    border: 2px solid blue;
     padding: 15px;
     margin-bottom: 40px;
     cursor: pointer;
+    background-color: #aecadf;
+    border-radius: 10px;
+}
+
+.courses-item:hover {
+    transform: scale(1.05);
 }
 
 /* Course details */
@@ -26,7 +36,8 @@
 .exam-info {
     font-size: 24px;
     list-style-type: none;
-    border: 2px solid rgb(113, 113, 129);
+    background-color: #aecadf;
+    border-radius: 10px;
     padding: 15px;
     margin: 20px 0;
     cursor: pointer;
@@ -41,10 +52,38 @@
     /* text-decoration: none; */
 }
 
-.toCreateNewExamBtn {
-    padding: 15px;
-    font-size: 24px;
+.primaryButton {
+    padding: 10px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 10px;
+}
+
+.primaryButton:hover {
+    color: #12161c;
+    background-color: rgb(129, 167, 168);
+}
+
+.commonButton {
+    padding: 10px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 10px;
+    background-color: cadetblue;
+}
+
+.commonButton:hover {
+    background-color: rgb(129, 167, 168);
+
+}
+
+.toCreateNewExamBtn a {
     text-decoration: none;
+    color: black;
+}
+
+.toCreateNewExamBtn a:hover {
+    color: black;
 }
 
 /* List students */
@@ -90,6 +129,11 @@
     flex-direction: column;
     border: 1px solid black;
     margin-bottom: 30px;
+    padding: 10px;
+}
+
+.questionContainer * {
+    padding: 10px;
 }
 
 .errorMessage {

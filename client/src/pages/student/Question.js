@@ -51,7 +51,7 @@ function Question(props) {
         <div>
             <h3>Câu hỏi {props.questionKey + 1}</h3>
             <div className="showQuestion">
-                <p>{props.question.questionContent}</p>
+                <p>Chọn đáp án đúng cho câu hỏi sau: {props.question.questionContent}</p>
                 
                 {newOptions.map((option) => {
                     return option;
