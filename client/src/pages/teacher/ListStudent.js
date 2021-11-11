@@ -50,10 +50,6 @@ function ListStudent() {
                         )
                     })} 
                 </table>
-
-
-
-
             </div>
         </div>
     )

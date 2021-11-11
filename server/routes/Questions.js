@@ -39,4 +39,14 @@ router.post("/:questionId", async (req, res) => {
   res.send("question updated");
 });
 
+router.delete("/:examId", async (req, res) => {
+  const examId = req.params.examId;
+  await Questions.destroy({
+    where: {
+      examId: examId
+    }
+  })
+  res.send("Questions deleted")
+});
+
 module.exports = router;

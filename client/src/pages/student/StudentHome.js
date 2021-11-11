@@ -5,13 +5,13 @@ import { useParams } from 'react-router';
 import { useHistory } from 'react-router-dom';
 import NoInformation from '../../components/NoInformation'
 
-function TeacherHome() {
-    let {teacherId} = useParams();
+function StudentHome() {
+    let {studentId} = useParams();
     let history = useHistory();
     const [listCourses, setListCourses] = useState([]);
     useEffect(()=> {
-        axios.get(`http://localhost:3001/admin/manage/courses/${teacherId}`).then((response) =>{
-            setListCourses(response.data)
+        axios.get(`http://localhost:3001/admin/manage/student-course/${studentId}`).then((response) =>{
+            setListCourses(response.data);
         });
     }, [])
 
@@ -27,9 +27,9 @@ function TeacherHome() {
                                 <div>
                                     <li className="courses-item" onClick={() => {
                                         // push to CourseDetail
-                                        history.push(`/teacher/${teacherId}/${courseId}`)
+                                        history.push(`/student/${studentId}/${courseId}`)
                                     }}>
-                                        {course.course_id} - {course.course_name}
+                                        {course.course_id} - {course.Course.course_name}
                                     </li>
                                 </div>
                             )
@@ -40,12 +40,9 @@ function TeacherHome() {
         )
     } else {
         return (
-            <div>
-                <NoInformation />
-            </div>
+            <NoInformation />
         )
     }
-        
 }
 
-export default TeacherHome
+export default StudentHome 

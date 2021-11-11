@@ -116,7 +116,9 @@ function AddExam() {
         <div className="page-container"> 
             <Link to={`/teacher/${teacherId}/${courseId}`}
             className="link">
-            Quay lại
+                <i class="fas fa-arrow-left"></i>
+                <span> </span>
+                Quay lại
             </Link>  
             <h2 className="list-title">Tạo một ca thi mới</h2>
             <Formik
@@ -169,12 +171,12 @@ function AddExam() {
                     <button 
                         type="button"
                         onclick={addQuestionField()}
-                        className="addQuestionbtn">
+                        className="addQuestionbtn primary commonButton">
                         Thêm câu hỏi
                     </button>
 
                     {questionFields}
-                    <button className="button submitButton" type="submit">
+                    <button className="button submitButton commonButton" type="submit">
                         Tạo ca thi
                     </button>
                 </Form>
