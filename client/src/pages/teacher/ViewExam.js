@@ -19,11 +19,17 @@ function ViewExam() {
 
     return (
         <div className="page-container">
-            <Link to={`/teacher/${teacherId}/${courseId}`}>
-                <i class="fas fa-arrow-left"></i>
-                <span> </span>
-                Quay lại</Link><br/>
-            <Link to={`/teacher/${teacherId}/${courseId}/view-grade/${examId}`}>Xem điểm của sinh viên</Link>
+            <div className="mb-16">
+                <Link to={`/teacher/${teacherId}/${courseId}`}>
+                    <i class="fas fa-arrow-left"></i>
+                    <span> </span>
+                    Quay lại</Link><br/>
+            </div>
+                <Link to={`/teacher/${teacherId}/${courseId}/view-grade/${examId}`}>
+            <button className="commonButton mb-16">
+                Xem điểm của sinh viên
+            </button>
+            </Link>
             {listQuestions.map((question, key) => {
                 return (
                     <div>

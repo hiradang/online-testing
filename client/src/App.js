@@ -9,6 +9,7 @@ import StudentHome from './pages/student/StudentHome';
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import route from './router/route';
 import '@fortawesome/fontawesome-free'
+import NotFoundPage from './components/NotFoundPage';
 
 function App() { 
   return ( 
@@ -25,6 +26,7 @@ function App() {
             <Route path="/admin/manage" exact component={AdminHome}></Route>
             <Route path="/teacher/:teacherId" exact component={TeacherHome}></Route>
             <Route path="/student/:studentId" exact component={StudentHome}></Route>
+            <Route component={NotFoundPage}></Route>
           </Switch>
         </Router>
       </div>

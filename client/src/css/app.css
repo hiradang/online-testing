@@ -63,3 +63,18 @@
 .footer .right {
     text-align: end;
 }
+
+/* Not found photo */
+
+.NotFoundPage, .noInformation {
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.noInformation p {
+    margin-top: 50px;
+    font-size: 40px;
+}
