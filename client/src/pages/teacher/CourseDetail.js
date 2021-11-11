@@ -50,7 +50,11 @@ function CourseDetail() {
                         <i class="fas fa-arrow-left"></i>
                         <span> </span>
                         Quay lại
-                    </Link>          
+                    </Link>   
+                    <span className="margin-left-10">
+                        <i class="fas fa-caret-right"></i>
+                        <span>{courseId}</span>       
+                    </span>
                 </div>
                 <div>
                     <Link to={`/teacher/${teacherId}/${courseId}/view-student`}
@@ -119,7 +123,20 @@ function CourseDetail() {
                         <i class="fas fa-arrow-left"></i>
                         <span> </span>
                         Quay lại
-                    </Link>          
+                    </Link> 
+                    <span className="margin-left-10">
+                        <i class="fas fa-caret-right"></i>
+                        <span>{courseId}</span>       
+                    </span>
+                </div>
+
+                <div>
+                    <Link to={`/teacher/${teacherId}/${courseId}/view-student`}
+                        className="link">
+                        <button className="commonButton mb-16">
+                            Xem danh sách sinh viên
+                        </button>
+                    </Link> 
                 </div>
                 <NoInformation />
             </div>

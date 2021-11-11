@@ -3,6 +3,11 @@
     padding: 0;
 }
 
+
+.margin-left-10 {
+    margin-left: 10px;
+}
+
 .app-container {
     min-height: 1000px;
 }

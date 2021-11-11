@@ -59,9 +59,12 @@ function CourseDetail() {
                     <Link to={`/student/${studentId}`}
                     className="link">
                     <i class="fas fa-arrow-left"></i>
-                    <span> </span>
                     Quay lại
-                    </Link>          
+                    </Link>    
+                    <span className="margin-left-10">   
+                        <i class="fas fa-caret-right"></i>  
+                        <span>{courseId}</span>
+                    </span>
                 </div>
     
                 <div>
@@ -113,6 +116,10 @@ function CourseDetail() {
                     <span> </span>
                     Quay lại
                     </Link>          
+                    <span className="margin-left-10">   
+                        <i class="fas fa-caret-right"></i>  
+                        <span>{courseId}</span>
+                    </span>
                 </div>
                 <NoInformation />
             </div>
