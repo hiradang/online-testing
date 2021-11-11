@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const {Students} = require('../models');
 const Accounts = require('../models/Accounts');
+const {validateToken} = require("../middlewares/AuthMiddleware")
 
 router.get("/", async (req, res) => {
     const listStudent = await Students.findAll();
@@ -55,7 +56,7 @@ router.post("/update", async (req, res) => {
   res.json(student);
 });
 
-router.post("/", async (req, res) => {
+router.post("/",validateToken, async (req, res) => {
     const student = req.body;
     const checkStudent = await Student.findByPk(student.student_id);    
     if (checkStudent === null) {

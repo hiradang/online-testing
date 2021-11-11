@@ -25,6 +25,9 @@ app.use("/admin/manage/exams", examRouter);
 const questionRouter = require("./routes/Questions")
 app.use("/admin/manage/questions", questionRouter);
 
+const account = require("./routes/Accounts")
+app.use("/account", account)
+
 db.sequelize.sync().then(() => {
     app.listen(3001, () => {
         console.log("Server running on port 3001");

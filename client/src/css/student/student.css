@@ -1,0 +1,9 @@
+.do-exam .left {
+    width: 90%;
+}
+
+.do-exam .right {
+    position: fixed;
+    right: 30px;
+    top: 50px;
+} 
