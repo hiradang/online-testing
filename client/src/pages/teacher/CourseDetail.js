@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams } from 'react-router';
 import { Link, useHistory } from 'react-router-dom';
 import moment from 'moment';
+import NoInformation from '../../components/NoInformation'
 
 function CourseDetail() {
     let {courseId} = useParams();
@@ -40,75 +41,107 @@ function CourseDetail() {
         }
     }
 
-    return (
-        <div className="page-container"> 
-            <div>
-                <Link to={`/teacher/${teacherId}`}
-                className="link">
-                Quay lại
-                </Link>          
-            </div>
-            <div>
-                <Link to={`/teacher/${teacherId}/${courseId}/view-student`}
+    if (listExams.length > 0) {
+        return (
+            <div className="page-container"> 
+                <div className="mb-16">
+                    <Link to={`/teacher/${teacherId}`}
                     className="link">
-                Xem danh sách sinh viên
-                </Link> 
+                        <i class="fas fa-arrow-left"></i>
+                        <span> </span>
+                        Quay lại
+                    </Link>   
+                    <span className="margin-left-10">
+                        <i class="fas fa-caret-right"></i>
+                        <span>{courseId}</span>       
+                    </span>
+                </div>
+                <div>
+                    <Link to={`/teacher/${teacherId}/${courseId}/view-student`}
+                        className="link">
+                        <button className="commonButton mb-16">
+                            Xem danh sách sinh viên
+                        </button>
+                    </Link> 
+                </div>
+    
+                <div>
+                    {listExams.map((exam, key) => {
+                        const examStartTime = moment(exam.timeStart.substring(0, 16)).add(7, "hours").toDate();
+                        // const examStartTime = moment(exam.timeStart.substring(0, 16)).utcOffset(7).toDate();
+                        const examFinishTime = moment(examStartTime).add(exam.duration, "minutes").toDate();
+                        const currentTime = new Date();
+                        let detailButton;
+                        if (key === 0) {
+                        }
+    
+                        // Decide which button to appear depend on exam happened or not?
+                        if (currentTime < examFinishTime) {
+                            detailButton = (
+                            <div>
+                                <button onClick={() => handleDeleteExam(exam.examId)}
+                                className="primaryButton">Xóa bài thi</button>
+                                <button onClick={() => {
+                                    history.push(`/teacher/${teacherId}/${courseId}/edit-exam/${exam.examId}`)
+                                }} className="primaryButton">Sửa ca thi</button>
+                            </div>)
+                        } else {
+                            detailButton = (<button onClick={() => {
+                                history.push(`/teacher/${teacherId}/${courseId}/view-exam/${exam.examId}`)
+                            }} className="primaryButton">Xem lại ca thi</button>)
+                        }
+                        return (
+                            <div className="exam-info">
+                                <ul> 
+                                Bài kiểm tra số {++key}
+                                    <li>Tên bài kiểm tra: {exam.examName}</li>
+                                    <li>Thời gian mở: {moment(examStartTime).format('DD-MM-YYYY hh:mm A')}</li>
+                                    <li>Thời gian làm bài: {exam.duration} phút</li>
+                                    <li>Số câu hỏi: {exam.numberQuestion}</li>
+                                </ul>
+    
+                                {detailButton}
+                            </div>
+                        )
+                    })}
+                </div>
+    
+                <button className="toCreateNewExamBtn commonButton" >
+                    <Link to={`/teacher/${teacherId}/${courseId}/new-exam${numberExam}`}
+                        className="link">
+                        Tạo một bài thi mới
+                    </Link>   
+                </button>
             </div>
-
-            <div>
-                {listExams.map((exam, key) => {
-                    const examStartTime = moment(exam.timeStart.substring(0, 16)).add(7, "hours").toDate();
-                    const examFinishTime = moment(examStartTime).add(exam.duration, "minutes").toDate();
-                    const currentTime = new Date();
-                    let detailButton;
-                    if (key === 0) {
-                        console.log("Client: " + exam.timeStart);
-                        console.log("Start time: " + examStartTime);
-                    }
-
-                    // Decide which button to appear depend on exam happened or not?
-                    if (currentTime < examFinishTime) {
-                        detailButton = (
-                        <div>
-                            <button onClick={() => handleDeleteExam(exam.examId)}>Xóa bài thi</button>
-                            <button onClick={() => {
-                                history.push(`/teacher/${teacherId}/${courseId}/edit-exam/${exam.examId}`)
-                            }}>Sửa ca thi</button>
-                        </div>)
-                    } else {
-                        detailButton = (<button onClick={() => {
-                            history.push(`/teacher/${teacherId}/${courseId}/view-exam/${exam.examId}`)
-                        }}>Xem lại ca thi</button>)
-                    }
-                    return (
-                        <div className="exam-info">
-                            <ul> 
-                            Bài kiểm tra số {++key}
-                                <li>Tên bài kiểm tra: {exam.examName}</li>
-                                <li>Thời gian mở: {moment(examStartTime).format('DD-MM-YYYY hh:mm A')}</li>
-                                <li>Thời gian làm bài: {exam.duration}</li>
-                                <li>Số câu hỏi: {exam.numberQuestion}</li>
-                            </ul>
-
-                            {/* Test purpose only */}
-                            {/* <button onClick={() => {
-                            history.push(`/teacher/${teacherId}/${courseId}/edit-exam/${exam.examId}`)
-                        }}>Sửa ca thi</button> */}
-
-                            {detailButton}
-                        </div>
-                    )
-                })}
-            </div>
-
-            <button className="toCreateNewExamBtn">
-                <Link to={`/teacher/${teacherId}/${courseId}/new-exam${numberExam}`}
+        )
+    } else {
+        return (
+            <div className="page-container">
+                <div className="mb-16">
+                    <Link to={`/teacher/${teacherId}`}
                     className="link">
-                    Tạo một bài thi mới
-                </Link>   
-            </button>
-        </div>
-    )
+                        <i class="fas fa-arrow-left"></i>
+                        <span> </span>
+                        Quay lại
+                    </Link> 
+                    <span className="margin-left-10">
+                        <i class="fas fa-caret-right"></i>
+                        <span>{courseId}</span>       
+                    </span>
+                </div>
+
+                <div>
+                    <Link to={`/teacher/${teacherId}/${courseId}/view-student`}
+                        className="link">
+                        <button className="commonButton mb-16">
+                            Xem danh sách sinh viên
+                        </button>
+                    </Link> 
+                </div>
+                <NoInformation />
+            </div>
+        )
+    }
 }
 
 export default CourseDetail;

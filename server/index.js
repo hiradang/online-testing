@@ -27,6 +27,8 @@ app.use("/admin/manage/questions", questionRouter);
 
 const account = require("./routes/Accounts")
 app.use("/account", account)
+const gradeRouter = require("./routes/Grades")
+app.use("/admin/manage/grades", gradeRouter);
 
 db.sequelize.sync().then(() => {
     app.listen(3001, () => {

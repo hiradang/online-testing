@@ -1,17 +1,27 @@
 const express = require('express');
 const router = express.Router();
 const {Students} = require('../models');
-const Accounts = require('../models/Accounts');
-const {validateToken} = require("../middlewares/AuthMiddleware")
+const {Student_Course} = require('../models');
+const {Accounts} = require('../models');
+
+router.get("/:id", async (req, res) => {
+  const id = req.params.id
+  const student = await Students.findByPk(id,{
+    attributes: ['student_id', 'name', 'faculty']
+  });
+  res.json(student)
+})
 
 router.get("/", async (req, res) => {
-    const listStudent = await Students.findAll();
+    const listStudent = await Students.findAll({
+      attributes: ['student_id', 'name', 'faculty']
+    });
     res.json(listStudent)
 })
 
 router.get("/delete/:id", async (req, res) => {
   const id = req.params.id
-  await Student.destroy({
+  await Students.destroy({
     where: {
       student_id: id
     }
@@ -23,17 +33,19 @@ router.get("/delete/:id", async (req, res) => {
   })
   await Accounts.destroy({
     where: {
-      id_account: student.student_id
+      id_account: id
     }
   })
-  const listStudent = await Student.findAll();
+  const listStudent = await Students.findAll({
+    attributes: ['student_id', 'name', 'faculty']
+  });
   res.json(listStudent)
 });
 
 
 router.post("/update", async (req, res) => {
   const student = req.body;
-  await Student.update({
+  await Students.update({
     name: student.name,
     faculty: student.faculty
   },
@@ -56,11 +68,12 @@ router.post("/update", async (req, res) => {
   res.json(student);
 });
 
-router.post("/",validateToken, async (req, res) => {
+router.post("/", async (req, res) => {
     const student = req.body;
-    const checkStudent = await Student.findByPk(student.student_id);    
-    if (checkStudent === null) {
-      await Student.create({
+    const checkStudent = await Students.findByPk(student.student_id);    
+    if (checkStudent !== null) res.json({error : "User đã tồn tại"})
+    else if (checkStudent === null) {
+      await Students.create({
         student_id: student.student_id,
         name: student.name,
         faculty: student.faculty

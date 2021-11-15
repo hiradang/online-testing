@@ -1,41 +1,38 @@
 import React from 'react';
 import {useState } from "react";
-import axios from "axios";
 import Swal from 'sweetalert2';
-import { useHistory, Redirect } from "react-router-dom";
 
 function Login() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    let history = useHistory();
     const submit = (e) => {
         e.preventDefault();
-        const data = { username: username, password: password };
-        axios.post("http://localhost:3001/account/login", data).then((response) => {
-            if (response.data.error) {
-                // alert(response.data.error);
-                Swal.fire({
-                    title: "Oops...",
-                    text: response.data.error,
-                    icon: "question",
-                    button: "Done",
-            
-                })
-            } else {
-                console.log(response.data)
-                localStorage.setItem("login", response.data.role);
-                localStorage.setItem("id", response.data.id_account.toString())
+        if (username !== "ADMIN") {
+            Swal.fire({
+                title: "Oops...",
+                text: "User Doesn't Exist",
+                icon: "question",
+                button: "Done",
+        
+            })
+        } else if (password !== "loan_binh") {
+            Swal.fire({
+                title: "Oops...",
+                text: "Wrong Username And Password Combination",
+                icon: "question",
+                button: "Done",
+        
+            })
+        } else {
+                localStorage.setItem("login", "admin");
                 window.location.reload();
-                // if (response.data.role === "teacher") history.push(`/teacher/${response.data.id_account}`);
-                // else history.push(`/student/${response.data.id_account}`);
               }
-        });
   };
     return (
     <div class = "container-login">
         <div class = "login-input" >
             <form method = "POST" action = "/" >
-            <h2>Đăng nhập</h2>
+            <h2>Đăng nhập Admin</h2>
             <div class="input-box">
             <label for="exampleInputEmail1">Username</label>
                 <i class="input-icon fas fa-user "></i>

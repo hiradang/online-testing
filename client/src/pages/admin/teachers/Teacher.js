@@ -88,7 +88,7 @@ function Teacher() {
     }
     return (
         <div>
-            <Link to = "/admin/manage/teachers/add" className="btnStudent btn btn-primary">Thêm giáo viên</Link>
+            <Link to = "/admin/manage/teachers/add" className="btnStudent btn btn-primary">Thêm giảng viên</Link>
             <table className="table table-striped">
                 <thead>
                     <th>#</th>

@@ -6,7 +6,7 @@ import moment from 'moment';
 import EditQuestion from "./EditQuestion";
 import {Link} from 'react-router-dom';
 
-function AddExam() {
+function EditExam() {
     const {examId} = useParams();
     const {teacherId} = useParams();
     const {courseId} = useParams();
@@ -49,7 +49,10 @@ function AddExam() {
 
     return (
         <div className="page-container"> 
-            <Link to={`/teacher/${teacherId}/${courseId}`}>Quay lại</Link>
+            <Link to={`/teacher/${teacherId}/${courseId}`}>
+                <i class="fas fa-arrow-left"></i>
+                <span> </span>
+                Quay lại</Link>
             <Formik onSubmit={handleEditCourse}
                 initialValues={{}}
             >
@@ -99,7 +102,7 @@ function AddExam() {
                         onChange={(e) => setNumberQuestion(e.target.value)}
                         disabled="true"
                     />
-                    <button className="button submitButton" type="submit">
+                    <button className="button commonButton submitButton" type="submit">
                         Sửa ca thi
                     </button>
 
@@ -114,4 +117,4 @@ function AddExam() {
     )
 }
 
-export default AddExam;
+export default EditExam;

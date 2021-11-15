@@ -45,7 +45,8 @@ class EditQuestion extends React.Component {
     render() {
         return (
             <div>
-                <button onClick={this.handleEditButton.bind(this)}>
+                <button onClick={this.handleEditButton.bind(this)}
+                className="primaryButton commonButton mb-16">
                     Sửa câu hỏi
                 </button>
                 <fieldset className="questionContainer" disabled={this.state.allowEditQuestion}>

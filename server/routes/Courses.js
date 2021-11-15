@@ -7,9 +7,11 @@ router.get("/:teacherId", async (req, res) => {
   let teacherId = req.params.teacherId;
   const teacherInfo = await Courses.findAll({
     where: {teacher_id : teacherId},
-    include: [
-      Teachers  
-    ]
+    include: 
+      {model:Teachers,
+      attributes: ['email']}
+    ,
+    attributes: ['course_id', 'course_name', 'teacher_id', 'teacher_name']   
   });
   res.json(teacherInfo)
 })
@@ -44,7 +46,9 @@ router.get("/delete/:id", async (req, res) => {
 });
 
 router.get("/", async (req, res) => {
-    const listCourses = await Courses.findAll();
+    const listCourses = await Courses.findAll({
+      attributes: ['course_id', 'course_name', 'teacher_name']
+    });
     res.json(listCourses)
 })
 

@@ -17,6 +17,12 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
+    },
+    {
+        indexes: [{
+            unique: true,
+            fields: ['course_id']
+        }]
     });
     Courses.associate = (models) => {
         Courses.hasMany(models.Student_Course, {

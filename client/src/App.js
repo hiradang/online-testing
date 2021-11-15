@@ -1,6 +1,8 @@
 import './css/admin/admin.css';
 import './css/teacher/teacher.css';
 import './css/student/student.css';
+import Header from './components/header';
+import Footer from './components/footer';
 import AdminHome from './pages/admin/Home';
 import TeacherHome from './pages/teacher/TeacherHome';
 import StudentHome from './pages/student/StudentHome';
@@ -10,6 +12,9 @@ import Login from './pages/login';
 import ProtectedRoute from './ProtectedRoute';
 import {useState } from "react";
 import RedirectRoute from './RedirectRoute';
+import '@fortawesome/fontawesome-free'
+import NotFoundPage from './components/NotFoundPage';
+import AdminLogin from './pages/admin/Login'
 
 function App() {
   
@@ -19,24 +24,26 @@ function App() {
   const [id, setId] = useState(localStorage.getItem("id"))
   return ( 
     <div className="App">
-      <Router>
-        <Switch>
+      <Header />
+      <div className="app-container">
+        <Router>
+          <Switch>
           <RedirectRoute path="/" exact component={Login} isAuth = {isAuth} id = {id}/>
           {route.map((value, key) => {
             return (
-              <Route path={value.path} exact component={value.component} />
+              <ProtectedRoute path={value.path} exact component={value.component} isAuth={isAuth === value.auth}/>
               )
           })}
-
-          {/* <Route path="/admin/manage" component= {AdminHome} />
-          <Route path="/teacher/:teacherId" exact component={TeacherHome} ></Route>
-          <Route path="/student/:studentId" exact component={StudentHome} ></Route> */}
+          <RedirectRoute path="/admin" exact component={AdminLogin} isAuth = {isAuth} id = ""/>
           <ProtectedRoute path="/admin/manage" component= {AdminHome} isAuth={isAuth}/>
           <ProtectedRoute path="/teacher/:teacherId" exact component={TeacherHome} isAuth = {isAuth === "teacher"}></ProtectedRoute>
           <ProtectedRoute path="/student/:studentId" exact component={StudentHome} isAuth={isAuth === "student"}></ProtectedRoute>
-          
-        </Switch>
-      </Router>
+          <Route component={NotFoundPage}></Route>
+          </Switch>
+        </Router>
+      </div>
+
+      <Footer />
     </div>
   );
 }

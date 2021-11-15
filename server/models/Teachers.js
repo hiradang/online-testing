@@ -13,6 +13,12 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
         }
+    },
+    {
+        indexes: [{
+            unique: true,
+            fields: ['teacher_id']
+        }]
     });
     Teachers.associate = (models) => {
         Teachers.hasMany(models.Courses, {
