@@ -19,12 +19,8 @@
     "react-scripts": "4.0.3",
     "sweetalert2": "^11.1.9",
     "web-vitals": "^1.1.2",
-<<<<<<< HEAD
-    "yup": "^0.32.11",
-    "sweetalert2": "^11.1.9"
-=======
     "yup": "^0.32.11"
->>>>>>> 2920a6fd2389b0640a219125e0cbe472a3a51863
+
   },
   "scripts": {
     "start": "react-scripts start",

@@ -21,6 +21,7 @@
 .info .right {
     display: flex;
     align-items: center;
+    position: relative;
 }
 
 .header .info {
@@ -47,6 +48,17 @@
 }
 
 
+.header_navbar-user {
+    position: absolute;
+    bottom: 50px;
+    display: none;
+}
+.info .right h2:hover, .header_navbar-user:hover {
+    cursor: pointer;
+}
+.info .right:hover  .header_navbar-user {
+    display: block;
+}
 /* Footer */
 
 .footer {

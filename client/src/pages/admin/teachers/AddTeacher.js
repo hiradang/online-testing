@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useEffect, useState } from "react";
 import { useHistory } from 'react-router-dom';
 import axios from "axios";
+import Swal from 'sweetalert2';
 import '@fortawesome/fontawesome-free/css/all.css'
 
 function AddTeacher() {
@@ -10,7 +11,16 @@ function AddTeacher() {
     const onSubmit = (e) => {
         e.preventDefault();
         axios.post("http://localhost:3001/admin/manage/teachers", data).then((response) => {
-            history.push("/admin/manage/teachers");
+            if (response.data.error) {
+                Swal.fire({
+                    title: "Oops...",
+                    text: response.data.error,
+                    icon: "question",
+                    button: "Done",
+            
+                })
+            }
+            else history.push("/admin/manage/teachers");
         });
       };
     const [data, setData] = useState({
@@ -27,7 +37,7 @@ function AddTeacher() {
         <div className = "formAddStudent">
             <form onSubmit = {(e)=>onSubmit(e)}>
             <div className = "formRow">
-                <label>Mã số giáo viên:</label>
+                <label>Mã số giảng viên:</label>
                 <input id = "" name="teacher_id" className = "inputAddStudent" required onChange = {(e)=> handle(e)}></input>
             </div>
             <div className = "formRow">
@@ -38,7 +48,7 @@ function AddTeacher() {
                 <label>Email:</label>
                 <input id = "" name="email" className = "inputAddStudent" required onChange = {(e)=> handle(e)}></input>
             </div>
-            <button type="submit" className="btn btn-primary buttonAddStudent">Thêm giáo viên</button>
+            <button type="submit" className="btn btn-primary buttonAddStudent">Thêm giảng viên</button>
             </form>
         </div>
     )

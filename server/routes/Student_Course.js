@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const {Student_Course} = require('../models')
+const {Student_Course, sequelize} = require('../models')
 const {Courses} = require('../models')
-const {Student} = require('../models')
+const {Students} = require('../models')
 
 router.get("/details/:courseId", async (req, res) => {
   let courseId = req.params.courseId;
@@ -43,15 +43,23 @@ router.get("/", async (req, res) => {
 router.post("/", async (req, res) => {
      const temp = req.body;
     for (let i = 0; i < temp.student_id.length; i++) {
-      const checkStudent = await Student.findByPk(temp.student_id[i]);
-      await Student_Course.create({
-        student_id: checkStudent.student_id,
-        name: checkStudent.name,
-        faculty: checkStudent.faculty,
-        course_id: temp.course_id
-      });
-      
-    }
+      const checkStudent = await Students.findByPk(temp.student_id[i]);   
+      if (checkStudent) {
+        const newStudent = await Student_Course.findOne({ where: {student_id: checkStudent.student_id}})
+        if  (newStudent === null) {
+          sequelize.query('CALL createStudentCourse(:student_id, :name, :faculty, :course_id)',
+          {replacements: { student_id: checkStudent.student_id, name: checkStudent.name, 
+            faculty: checkStudent.faculty, course_id: temp.course_id,}})
+          }
+        }
+      }
+      // await Student_Course.create({
+      //   student_id: checkStudent.student_id,
+      //   name: checkStudent.name,
+      //   faculty: checkStudent.faculty,
+      //   course_id: temp.course_id
+      // });
+     
     res.json(temp);
   });
 

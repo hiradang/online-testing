@@ -18,8 +18,17 @@ function AddStudent() {
         }
         setData(newData);
         e.preventDefault();
-        axios.post("http://localhost:3001/admin/manage/students", data).then((response) => {
+        axios.post("http://localhost:3001/admin/manage/students", data, {
+            headers: {
+                accessToken: sessionStorage.getItem("accessToken"),
+            }
+        }).then((response) => {
+            if (response.data.error) {
+                console.log(response.data.error)
+
+            } else {
             history.push("/admin/manage/students");
+            }
         });
       };
     const [data, setData] = useState({
