@@ -60,16 +60,18 @@ function DoExam() {
     }
 
     const handleSubmit = function(e) {
-        let finalPoint = countFinalPoint();
-        let gradeInfo = {
-            grade: finalPoint,
-            isFinish: true
+        if (window.confirm("Bạn có chắc chắn muốn nộp bài thi?")) {
+            let finalPoint = countFinalPoint();
+            let gradeInfo = {
+                grade: finalPoint,
+                isFinish: true
+            }
+            axios.post(`http://localhost:3001/admin/manage/grades/${studentId}/${examId}`, gradeInfo)
+            .then((res) => {
+                window.alert("Bạn đã hoàn thành bài thi!")
+                history.push(`/student/${studentId}/${courseId}`);
+            })
         }
-        axios.post(`http://localhost:3001/admin/manage/grades/${studentId}/${examId}`, gradeInfo)
-        .then((res) => {
-            window.alert("Bạn đã hoàn thành bài thi!")
-            history.push(`/student/${studentId}/${courseId}`);
-        })
     }
 
     return (
@@ -93,7 +95,7 @@ function DoExam() {
 
             <div className="right">
                 <div className="time">
-                    Thời gian:
+                    <span>Thời gian: </span>
                     <Countdown date={Date.now() + timeLeft} 
                     onComplete={handleSubmit}
                     daysInHours="false"

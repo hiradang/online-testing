@@ -19,7 +19,8 @@ module.exports = (sequelize, DataTypes) => {
             unique: true,
             fields: ['student_id']
         }]
-    });
+    }
+    );
     
     return Students;
 };

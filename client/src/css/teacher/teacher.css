@@ -94,6 +94,7 @@
 .list-student-container th {
     border: 2px solid rgb(115, 115, 209);
     border-collapse: collapse;
+    margin-top: 50px;
 }
 
 .list-student-container td,
@@ -151,4 +152,19 @@ fieldset.showQuestion {
 fieldset.showQuestion input {
     padding: 10px;
     margin-bottom: 20px;
+}
+
+/* View students' grade */
+.grade-students {
+    display: flex;
+}
+
+.grade-students .right {
+    margin: 20px auto;
+    text-align: center;
+}
+
+.grade-students .right .chart-title{
+    margin-bottom: 50px;
+    margin-top: 15px;
 }

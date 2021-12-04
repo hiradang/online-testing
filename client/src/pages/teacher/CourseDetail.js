@@ -28,6 +28,7 @@ function CourseDetail() {
         if (window.confirm("Are you sure to delete this exam? You can't undo this action")) {
             axios.delete(`http://localhost:3001/admin/manage/exams/${examid}`);
             axios.delete(`http://localhost:3001/admin/manage/questions/${examid}`);
+            axios.delete(`http://localhost:3001/admin/manage/grades/${examid}`);
             axios.get(`http://localhost:3001/admin/manage/exams/${courseId}`, ).then((res) => {
                 setListExams(res.data);
                 if (res.data.length > 0) {
@@ -138,7 +139,14 @@ function CourseDetail() {
                         </button>
                     </Link> 
                 </div>
-                <NoInformation />
+
+                Chưa có ca thi nào trong khóa học này. <br/> <br/>
+                <button className="toCreateNewExamBtn commonButton" >
+                    <Link to={`/teacher/${teacherId}/${courseId}/new-exam${numberExam}`}
+                        className="link">
+                        Tạo một bài thi mới
+                    </Link>   
+                </button>
             </div>
         )
     }

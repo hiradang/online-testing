@@ -72,4 +72,16 @@ router.post("/:studentId/:examId", async (req, res) => {
   res.send(" grade saved");
 });
 
+
+router.delete("/:examId", async (req, res) => {
+  const examId = req.params.examId;
+  await Grades.destroy({
+    where: {
+      examId: examId
+    }
+  })
+  res.send("Grades deleted")
+});
+
+
 module.exports = router;

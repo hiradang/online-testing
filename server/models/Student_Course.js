@@ -15,7 +15,11 @@ module.exports = (sequelize, DataTypes) => {
         course_id: {
             type: DataTypes.STRING,
             allowNull: false,
-        }
+        },
+        type: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
     });
     Student_Course.associate = (models) => {
         Student_Course.belongsTo(models.Courses, {

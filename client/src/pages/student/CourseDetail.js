@@ -70,7 +70,7 @@ function CourseDetail() {
                 <div>
                     {listExams.map((exam, key) => {
                         const examStartTime = moment(exam.timeStart.substring(0, 16)).add(7, "hours").toDate();
-                        const examFinishTime = moment(examStartTime).add(exam.duration, "minutes").toDate();
+                        const examFinishTime = moment(examStartTime).add(10, "minutes").toDate();
                         const currentTime = new Date();
                         let detailButton;
     

@@ -126,27 +126,16 @@ export default [
         component: ViewStudentGrade,
         auth: "teacher"
     },
-    {
-        path: "/teacher/:teacherId/:courseId/view-grade/:examId",
-        component: ViewStudentGrade
-    },
-    
 
     //student
     {
         path: "/student/:studentId/:courseId",
-<<<<<<< HEAD
-        component: CourseDetailStudent
-    },
-    {
-        path: "/student/:studentId/:courseId/do-exam/:examId",
-        component: DoExam
+        component: CourseDetailStudent, 
+        auth: "student"
     },
     {
         path: "/student/:studentId/:courseId/view-exam/:examId",
-        component: ViewExamStudent
-=======
-        component: CourseDetailStudent,
+        component: ViewExamStudent,
         auth: "student"
     },
     {
@@ -158,6 +147,5 @@ export default [
         path: "/student/:studentId/:courseId/view-exam/:examId",
         component: ViewExamStudent,
         auth: "student"
->>>>>>> login
     },
 ];

@@ -4,6 +4,7 @@ import { useParams } from 'react-router';
 import axios from 'axios';
 import * as Yup from 'yup';
 import {useHistory, Link} from 'react-router-dom';
+import moment from 'moment';
 
 function AddExam() {
     const {courseId} = useParams();
@@ -24,9 +25,9 @@ function AddExam() {
     
     const validationSchema = Yup.object().shape({
         examName: Yup.string().required("Bạn phải nhập tên bài thi!"),
-        timeStart: Yup.string().required("Bạn phải chọn thời gian bắt đầu!"),
-        duration: Yup.string().required("Bạn phải nhập thời gian làm bài!"),
-        numberQuestion: Yup.string().required("Bạn phải nhập số lượng câu hỏi!"),
+        timeStart: Yup.date().required("Bạn phải chọn thời gian bắt đầu!").min(moment(Date.now()).format('YYYY-MM-DDTHH:mm'), "Ngày thi không hợp lệ"),
+        duration: Yup.number().required("Bạn phải nhập thời gian làm bài!").min(1, "Thời gian thi tối thiểu là 1 phút"),
+        numberQuestion: Yup.number().required("Bạn phải nhập số lượng câu hỏi!").min(1, "Số lượng câu hỏi tối thiểu là 1"),
     });
     
     const onSubmit = async (data) => {
