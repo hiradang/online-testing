@@ -22,6 +22,7 @@ function UpdateCourse() {
     useEffect(()=> {      
        axios.get(`http://localhost:3001/admin/manage/courses/update/${id}`).then((response) =>{
             setCourseInfo(response.data);
+            console.log(response.data)
             data.course_id = response.data.course_id;
             data.course_name = response.data.course_name;
             data.teacher_id = response.data.teacher_id;

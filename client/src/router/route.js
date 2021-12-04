@@ -135,17 +135,6 @@ export default [
     //student
     {
         path: "/student/:studentId/:courseId",
-<<<<<<< HEAD
-        component: CourseDetailStudent
-    },
-    {
-        path: "/student/:studentId/:courseId/do-exam/:examId",
-        component: DoExam
-    },
-    {
-        path: "/student/:studentId/:courseId/view-exam/:examId",
-        component: ViewExamStudent
-=======
         component: CourseDetailStudent,
         auth: "student"
     },
@@ -158,6 +147,5 @@ export default [
         path: "/student/:studentId/:courseId/view-exam/:examId",
         component: ViewExamStudent,
         auth: "student"
->>>>>>> login
     },
 ];

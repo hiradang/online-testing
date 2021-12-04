@@ -14,6 +14,23 @@ router.get("/details/:courseId", async (req, res) => {
   });
   res.json(courseInfo)
 })
+
+router.post("/delete/:id", async (req, res) => {
+  const studentId = req.params.id;
+  const courseId = req.body.id;
+  console.log(req.body)
+  await Student_Course.destroy({
+    where: {
+      course_id: courseId,
+      student_id: studentId
+    }
+  })
+  // const studentInfo = await Student_Course.findAll({
+  //   where: {student_id : studentId},
+  // });
+  res.json(courseId);
+})
+
 router.get("/update/:id", async (req, res) => {
   let studentId = req.params.id;
   console.log(studentId)
@@ -25,7 +42,6 @@ router.get("/update/:id", async (req, res) => {
 
 router.get("/:studentId", async (req, res) => {
   let studentId = req.params.studentId;
-  console.log(studentId)
   const studentInfo = await Student_Course.findAll({
     where: {student_id : studentId},
     include: [
@@ -44,8 +60,10 @@ router.post("/", async (req, res) => {
      const temp = req.body;
     for (let i = 0; i < temp.student_id.length; i++) {
       const checkStudent = await Students.findByPk(temp.student_id[i]);   
-      if (checkStudent) {
-        const newStudent = await Student_Course.findOne({ where: {student_id: checkStudent.student_id}})
+      
+      if (checkStudent !== null) {
+        const newStudent = await Student_Course.findOne({ where: {student_id: checkStudent.student_id, course_id: temp.course_id}})
+     
         if  (newStudent === null) {
           sequelize.query('CALL createStudentCourse(:student_id, :name, :faculty, :course_id)',
           {replacements: { student_id: checkStudent.student_id, name: checkStudent.name, 

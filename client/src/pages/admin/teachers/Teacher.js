@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import { useHistory } from 'react-router-dom';
 import swal from 'sweetalert2';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import { TablePagination } from '@trendmicro/react-paginations';
+import '@trendmicro/react-paginations/dist/react-paginations.css';
 import {BrowserRouter as Router, Link, Route, Switch} from "react-router-dom";
 
 
@@ -12,6 +13,8 @@ function Teacher() {
     let history = useHistory();
     const [listTeachers, setListTeachers] = useState([]);
     var [tempListTeachers, setTempListTeachers] = useState([])
+    const [pageLength,setPageLength] = useState(50)
+    const [page, setPage] = useState(1)
     useEffect(()=> {
         axios.get("http://localhost:3001/admin/manage/teachers").then((response) =>{
             setListTeachers(response.data)
@@ -63,7 +66,8 @@ function Teacher() {
                     teacher.email.toLowerCase().indexOf(data.email) !== -1)
             })
             console.log(data)
-            setTempListTeachers(temp)    
+            setTempListTeachers(temp)   
+            setPage(1)  
         }
     }
     
@@ -89,6 +93,22 @@ function Teacher() {
     return (
         <div>
             <Link to = "/admin/manage/teachers/add" className="btnStudent btn btn-primary">Thêm giảng viên</Link>
+            <br/>
+            <div style={{float: 'right'}}>
+            <TablePagination
+                type="full"
+                page={page}
+                pageLength={pageLength}
+                totalRecords={tempListTeachers.length}
+                pageLengthMenu = {[10,50,100,500,1000]}
+                onPageChange={({ page, pageLength }) => {
+                    setPage(page);
+                    setPageLength(pageLength)
+                }}
+                prevPageRenderer={() => <i className="fa fa-angle-left" />}
+                nextPageRenderer={() => <i className="fa fa-angle-right" />}
+            />
+            </div>
             <table className="table table-striped">
                 <thead>
                     <th>#</th>
@@ -114,7 +134,7 @@ function Teacher() {
                     <th></th>
                 </thead>
                 
-                {tempListTeachers.map((value, key) => {
+                {tempListTeachers.slice((page-1)*pageLength,page*pageLength).map((value, key) => {
                     return (
                         <tbody className = "row_table" id = {value.teacher_id}  >
                         <td onClick={()=> {
@@ -139,7 +159,22 @@ function Teacher() {
                     
                 </tfoot>
                 </table>
-            
+                <div style={{float: 'right'}}>
+            <TablePagination
+                type="full"
+                page={page}
+                pageLength={pageLength}
+                totalRecords={tempListTeachers.length}
+                pageLengthMenu = {[10,50,100,500,1000]}
+                onPageChange={({ page, pageLength }) => {
+                    setPage(page);
+                    setPageLength(pageLength)
+                }}
+                prevPageRenderer={() => <i className="fa fa-angle-left" />}
+                nextPageRenderer={() => <i className="fa fa-angle-right" />}
+            />
+            </div>
+            <div style = {{clear: 'right'}}></div>
         </div>
     )
 }
