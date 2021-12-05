@@ -12,19 +12,19 @@ function Home() {
                                         // push to CourseDetail
                                         history.push("/admin/manage/courses")
                                     }}>
-      Xem danh sách các lớp môn học
+      Danh sách các lớp môn học
       </li>
       <li className="courses-item" onClick={() => {
                                         // push to CourseDetail
                                         history.push("/admin/manage/teachers")
                                     }}>
-      Xem danh sách các giảng viên
+      Danh sách các giảng viên
       </li>
       <li className="courses-item" onClick={() => {
                                         // push to CourseDetail
                                         history.push("/admin/manage/students")
                                     }}>
-      Xem danh sách các sinh viên
+      Danh sách các sinh viên
       </li>
        </ul>
       {/* {/* <div className="card">

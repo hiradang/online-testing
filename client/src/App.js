@@ -15,6 +15,7 @@ import RedirectRoute from './RedirectRoute';
 import '@fortawesome/fontawesome-free'
 import NotFoundPage from './components/NotFoundPage';
 import AdminLogin from './pages/admin/Login'
+import UpdatePass from './pages/updatePass';
 
 function App() {
   
@@ -28,6 +29,7 @@ function App() {
       <div className="app-container">
         <Router>
           <Switch>
+          <Route path="/updatePass/:id" exact component={UpdatePass}></Route>
           <RedirectRoute path="/" exact component={Login} isAuth = {isAuth} id = {id}/>
           {route.map((value, key) => {
             return (

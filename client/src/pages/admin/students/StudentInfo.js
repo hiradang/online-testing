@@ -15,6 +15,7 @@ function StudentInfo() {
             setStudentInfo(response.data)
         });
     }, [])
+    console.log(studentInfo)
     function del(e) {
         swal.fire({
             title: "Xóa sinh viên?",
@@ -27,7 +28,7 @@ function StudentInfo() {
         }).then((result) => {
             if (result.isConfirmed) {
             
-                axios.get(`http://localhost:3001/admin/manage/students/delete/${id}`).then((response) => {
+                axios.post(`http://localhost:3001/admin/manage/students/delete/${id}`, id).then((response) => {
                     history.push("/admin/manage/students");
                 });
             }

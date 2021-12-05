@@ -6,6 +6,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.css'
 import swal from 'sweetalert2';
 import {Link} from "react-router-dom";
+import { TablePagination } from '@trendmicro/react-paginations';
+import '@trendmicro/react-paginations/dist/react-paginations.css';
 
 function Courses() {
     const [data, setData] = useState({
@@ -19,6 +21,8 @@ function Courses() {
     })
     const [listCourse, setListCourse] = useState([]);
     var [tempListCourse, setTempListCourse] = useState([])
+    const [pageLength,setPageLength] = useState(50)
+    const [page, setPage] = useState(1)
     function onSort(e) {
         const newSort = {...sort};
         if (sort.by === e.target.id) {
@@ -52,7 +56,8 @@ function Courses() {
                 return (course.course_name.toLowerCase().indexOf(data.course_name) !==-1   && course.course_id.toLowerCase().indexOf(data.course_id) !==-1 &&
                         course.teacher_name.toLowerCase().indexOf(data.teacher_name) !== -1)
             })
-            setTempListCourse(temp)    
+            setTempListCourse(temp)   
+            setPage(1) 
         }
     }
     let history = useHistory();
@@ -81,9 +86,26 @@ function Courses() {
             }
         })  
     }
+    
     return (
         <div>
             <Link to = "/admin/manage/courses/add" className="btnStudent btn btn-primary">Thêm lớp học phần</Link>
+            <br/>
+            <div style={{float: 'right'}}>
+            <TablePagination
+                type="full"
+                page={page}
+                pageLength={pageLength}
+                totalRecords={tempListCourse.length}
+                pageLengthMenu = {[10,50,100,500,1000]}
+                onPageChange={({ page, pageLength }) => {
+                    setPage(page);
+                    setPageLength(pageLength)
+                }}
+                prevPageRenderer={() => <i className="fa fa-angle-left" />}
+                nextPageRenderer={() => <i className="fa fa-angle-right" />}
+            />
+            </div>
             <table className="table table-striped">
                 <thead>
                     <th>#</th>
@@ -112,7 +134,7 @@ function Courses() {
                     <th></th>
                 </thead>
                 
-                {tempListCourse.map((value, key) => {
+                {tempListCourse.slice((page-1)*pageLength,page*pageLength).map((value, key) => {
                     return (
                         <tbody className = "row_table"  id = {value.course_id}  >
                         <td onClick={()=> {
@@ -137,7 +159,22 @@ function Courses() {
                     
                 </tfoot>
                 </table>
-            
+                <div style={{float: 'right'}}>
+            <TablePagination
+                type="full"
+                page={page}
+                pageLength={pageLength}
+                totalRecords={tempListCourse.length}
+                pageLengthMenu = {[10,50,100,500,1000]}
+                onPageChange={({ page, pageLength }) => {
+                    setPage(page);
+                    setPageLength(pageLength)
+                }}
+                prevPageRenderer={() => <i className="fa fa-angle-left" />}
+                nextPageRenderer={() => <i className="fa fa-angle-right" />}
+            />
+            </div>
+            <div style = {{clear: 'right'}}></div>
         </div>
     )
 }

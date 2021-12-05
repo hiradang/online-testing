@@ -44,14 +44,22 @@
 
 .header .navbar a {
     text-decoration: none;
+    color: rgb(110, 43, 43);
+}
+
+.header__navbar-select-link {
+    text-decoration: none;
     color: black;
 }
 
+.header__navbar-select-link:hover {
+    color: black;
+}
 
 .header_navbar-user {
     position: absolute;
-    bottom: 50px;
-    display: none;
+    bottom: 25px;
+    display: none; 
 }
 .info .right h2:hover, .header_navbar-user:hover {
     cursor: pointer;

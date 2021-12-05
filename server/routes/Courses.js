@@ -2,16 +2,16 @@ const express = require('express');
 const router = express.Router();
 const {Courses} = require('../models')
 const {Teachers} = require('../models')
-
+const {Student_Course} = require('../models')
 router.get("/:teacherId", async (req, res) => {
   let teacherId = req.params.teacherId;
   const teacherInfo = await Courses.findAll({
     where: {teacher_id : teacherId},
     include: 
       {model:Teachers,
-      attributes: ['email']}
+      attributes: ['email', 'teacher_name']}
     ,
-    attributes: ['course_id', 'course_name', 'teacher_id', 'teacher_name']   
+    attributes: ['course_id', 'course_name', 'teacher_id']   
   });
   res.json(teacherInfo)
 })
@@ -37,6 +37,11 @@ router.post("/update", async (req, res) => {
 router.get("/delete/:id", async (req, res) => {
   const id = req.params.id
   await Courses.destroy({
+    where: {
+      course_id: id
+    }
+  })
+  await Student_Course.destroy({
     where: {
       course_id: id
     }

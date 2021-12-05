@@ -2,7 +2,7 @@ import React from 'react';
 import {useState } from "react";
 import axios from "axios";
 import Swal from 'sweetalert2';
-import { useHistory, Redirect } from "react-router-dom";
+import { useHistory} from "react-router-dom";
 
 function Login() {
     const [username, setUsername] = useState("");
@@ -12,8 +12,9 @@ function Login() {
         e.preventDefault();
         const data = { username: username, password: password };
         axios.post("http://localhost:3001/account/login", data).then((response) => {
+            // alert(response.data.error)
             if (response.data.error) {
-                // alert(response.data.error);
+               
                 Swal.fire({
                     title: "Oops...",
                     text: response.data.error,
@@ -23,9 +24,18 @@ function Login() {
                 })
             } else {
                 console.log(response.data)
-                localStorage.setItem("login", response.data.role);
-                localStorage.setItem("id", response.data.id_account.toString())
-                window.location.reload();
+                
+                if (response.data.warn) {
+                    localStorage.setItem("login", response.data.user.role);
+                    localStorage.setItem("id", response.data.user.id_account.toString())
+                    history.push(`/updatePass/${username}`)
+                }
+                else {
+                    localStorage.setItem("login", response.data.role);
+                    localStorage.setItem("id", response.data.id_account.toString())
+                    history.push('/')
+                    window.location.reload()
+                }
                 // if (response.data.role === "teacher") history.push(`/teacher/${response.data.id_account}`);
                 // else history.push(`/student/${response.data.id_account}`);
               }

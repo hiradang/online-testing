@@ -2,17 +2,20 @@ import React from 'react'
 import '../css/app.css'
 import logo from '../img/UET-01.png'
 import { useEffect, useState } from "react"
+import { useHistory} from "react-router-dom";
 import axios from "axios"
 
 function Header() {
     var id = localStorage.getItem("id");
     var role = localStorage.getItem("login")
     const [name, setName] = useState("");
+    let history = useHistory();
     function logout(e) {
         console.log("logout")
         localStorage.removeItem("login")
         localStorage.removeItem("id")
-        window.location.reload()
+        //history.push('/')
+        window.location.assign('/')
     }
     useEffect(()=> {
         if (role === "student") {
@@ -42,6 +45,10 @@ function Header() {
                         </h2>
                         <br/>
                     <div class="header_navbar-user">
+                    <i class="fas fa-user-edit header_navbar-user-icon" ></i>
+                    <a href = {`/updatePass/${id}`} className="header__navbar-select-link" >Thay đổi mật khẩu</a>
+                    {/* <span class="header__navbar-select-link"  >Thay đổi mật khẩu</span> */}
+                    <br/>
                     <i class="fas fa-sign-out-alt header_navbar-user-icon" ></i>
                     <span class="header__navbar-select-link" onClick={(e)=> logout(e)} >Đăng xuất</span>
                     </div>

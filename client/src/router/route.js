@@ -130,12 +130,7 @@ export default [
     //student
     {
         path: "/student/:studentId/:courseId",
-        component: CourseDetailStudent, 
-        auth: "student"
-    },
-    {
-        path: "/student/:studentId/:courseId/view-exam/:examId",
-        component: ViewExamStudent,
+        component: CourseDetailStudent,
         auth: "student"
     },
     {

@@ -9,6 +9,9 @@
 .do-exam .right {
     display: flex;
     flex-direction: column;
+    position: fixed;
+    right: 30px;
+    top: 50px;
 } 
 
 .do-exam .right .time {
@@ -43,4 +46,8 @@
     display: flex;
     flex-direction: column;
     font-size: 20px;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> pagination
