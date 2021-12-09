@@ -133,6 +133,7 @@ export default [
         component: CourseDetailStudent,
         auth: "student"
     },
+    
     {
         path: "/student/:studentId/:courseId/do-exam/:examId",
         component: DoExam,
